@@ -1,0 +1,127 @@
+<section class="hero-section position-relative overflow-hidden">
+    <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100"></div>
+    <div class="container position-relative py-5" style="z-index:1">
+        <div class="row min-vh-50 align-items-center py-5">
+            <div class="col-lg-7">
+                <span class="badge hero-badge text-uppercase mb-3 px-3 py-2 ls-wide">Temporada 2025</span>
+                <h1 class="hero-title display-3 fw-black text-uppercase text-white mb-3">
+                    Bem-vindo ao mundo da<br>
+                    <span class="text-f1-red">Fórmula 1</span>
+                </h1>
+                <p class="text-white-100 fs-5 mb-4">
+                    Velocidade, adrenalina e tecnologia de ponta.<br>
+                    Acompanhe pilotos, equipes e os resultados da temporada.
+                </p>
+                <button class="btn btn-f1 btn-lg fw-bold text-uppercase px-4" (click)="irParaPilotos()">
+                    Ver Pilotos <span class="ms-2">→</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="hero-flag-stripe position-absolute bottom-0 start-0 w-100"></div>
+</section>
+
+<!-- ===== ÚLTIMA CORRIDA ===== -->
+<section class="py-5 bg-f1-surface">
+    <div class="container">
+        <p class="section-label text-uppercase fw-bold ls-wide mb-1">Resultado Recente</p>
+        <h2 class="section-title text-uppercase text-white fw-black mb-4">Última Corrida</h2>
+
+        <div class="card bg-f1-card border-f1 border-start border-danger border-3 rounded-3 p-4">
+            <div class="d-flex flex-wrap align-items-center gap-4">
+                <div class="fs-1 text-white">{{ ultimaCorrida.flag }}</div>
+
+                <div class="flex-grow-1">
+                    <div class="race-label text-uppercase fw-bold ls-wide small mb-1 ">
+                        Round {{ ultimaCorrida.round }}
+                    </div>
+                    <div class="fw-black text-uppercase text-white fs-4 font-condensed text-white">{{ ultimaCorrida.name
+                        }}</div>
+                    <div class=" small mt-1 text-white">{{ ultimaCorrida.circuit }} · {{ ultimaCorrida.date }}
+                    </div>
+                </div>
+
+                <div class="text-end">
+                    <div class="text-uppercase fw-bold ls-wide small text-secondary mb-1">Vencedor</div>
+                    <div class="fw-black fs-4 font-condensed text-warning">{{ ultimaCorrida.winner }}</div>
+                    <div class="small mt-1 text-white">{{ ultimaCorrida.team }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PILOTOS EM DESTAQUE ===== -->
+<section class="section drivers-section">
+    <div class="section-inner">
+        <div class="section-label">CAMPEONATO 2025</div>
+        <h2 class="section-title">Pilotos em Destaque</h2>
+
+        <div class="drivers-highlight-grid">
+            @for (driver of pilotos; track driver.number; let i = $index) {
+            <div class="driver-highlight-card" [style.--team-color]="driver.teamColor">
+                <div class="card-accent-bar"></div>
+                <div class="driver-position">{{ i + 1 }}º</div>
+                <div class="driver-flag">{{ driver.nationality }}</div>
+                <div class="driver-num">#{{ driver.number }}</div>
+                <div class="driver-name">{{ driver.name }}</div>
+                <div class="driver-team-name">{{ driver.team }}</div>
+                <div class="driver-pts">{{ driver.points }} <span>PTS</span></div>
+            </div>
+            }
+        </div>
+
+        <div class="section-action">
+            <button class="btn-outline" (click)="irParaPilotos()">Ver todos os pilotos →
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-f1-surface">
+    <div class="container">
+        <p class="section-label text-uppercase fw-bold ls-wide mb-1">Construtores</p>
+        <h2 class="section-title text-uppercase text-white fw-black mb-4">Equipes</h2>
+
+        <div class="row g-3">
+            @for (team of equipes; track team.name) {
+            <div class="col-sm-6 col-lg-3">
+                <div class="card team-card bg-f1-card border-f1 rounded-3 h-100 p-3" [style.--team-color]="team.color">
+                    <div class="team-logo-wrap mb-2">
+                        <img [src]="team.logo" [alt]="team.name" class="team-logo-img">
+                    </div>
+                    <h6 class="fw-bold text-uppercase text-white font-condensed mb-1">{{ team.name }}</h6>
+                    <p class="text-white small mb-2">{{ team.points }} PTS</p>
+                    <div class="progress bg-dark" style="height:3px">
+                        <div class="progress-bar team-progress-bar" [style.width.%]="(team.points / 150) * 100"></div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-f1-dark">
+    <div class="container">
+        <p class="section-label text-uppercase fw-bold ls-wide mb-1">Calendário</p>
+        <h2 class="section-title text-uppercase text-white fw-black mb-4">Próximas Corridas</h2>
+
+        <div class="d-flex flex-column gap-3">
+            @for (race of proximasCorridas; track race.round) {
+            <div class="card bg-f1-card border-f1 rounded-3 px-4 py-3 upcoming-card">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="fs-2 text-warning">{{ race.flag }}</div>
+                    <div class="flex-grow-1">
+                        <div class="fw-bold text-uppercase text-white font-condensed">{{ race.name }}</div>
+                        <div class="text-white small">{{ race.circuit }}</div>
+                    </div>
+                    <div class="fw-semibold font-condensed text-warning small text-end text-nowrap">
+                        {{ race.date }}
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>
