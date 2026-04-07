@@ -11,6 +11,7 @@
     --f1-accent: #ffd700;
     --f1-white: #f0f0f0;
     --f1-green: #00d2be;
+    --f1-driver: $team-color;
     --transition: 0.25s cubic-bezier(.4, 0, .2, 1);
 }
 
@@ -26,8 +27,6 @@ body {
     color: var(--f1-white);
     min-height: 100vh;
 }
-
-/* ===== CONTENT COMPONENT ===== */
 
 .content-wrapper {
     max-width: 1200px;
@@ -120,8 +119,8 @@ body {
 
 .driver-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(225, 6, 0, 0.15);
-    border-color: var(--f1-red);
+    box-shadow: 0 12px 32px rgba(255, 255, 255, 0.15);
+    border-color: var(--f1-white);
 }
 
 .card-top-bar {

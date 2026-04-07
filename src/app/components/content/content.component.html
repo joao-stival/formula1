@@ -22,7 +22,7 @@
 
     <div class="drivers-grid">
         @for (driver of filteredDrivers; track driver.number) {
-        <div class="driver-card">
+        <div class="driver-card" [style.border-color]="driver.teamColor">
             <div class="card-top-bar" [style.background]="driver.teamColor"></div>
             <span class="driver-number-bg">{{ driver.number }}</span>
             <span class="driver-flag">{{ driver.nationality }}</span>
