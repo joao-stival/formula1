@@ -1,7 +1,7 @@
 <div class="content-wrapper">
     <div class="hero-section mb-5">
         <div class="hero-overlay"></div>
-        <img src="img/ferrariF1.png" alt="Ferrari F1" class="hero-car" />
+        <img src="image/ferrariF1.png" alt="Ferrari F1" class="hero-car" />
         <div class="hero-text">
             <h1 class="hero-title">Bem Vindo a F1!</h1>
             <p class="hero-subtitle">Veja os pilotos da fórmula 1</p>
@@ -20,25 +20,22 @@
         <span class="results-count">{{ filteredDrivers.length }} piloto(s) encontrado(s)</span>
     </div>
 
-    <div class="drivers-grid">
-        @for (driver of filteredDrivers; track driver.number) {
-        <div class="driver-card" [style.border-color]="driver.teamColor">
-            <div class="card-top-bar" [style.background]="driver.teamColor"></div>
-            <span class="driver-number-bg">{{ driver.number }}</span>
-            <span class="driver-flag">{{ driver.nationality }}</span>
-            @if (driver.logo) {
-            <img [src]="driver.logo" [alt]="driver.team" class="driver-team-logo">
-            }
-            <h3 class="driver-name">{{ driver.name }}</h3>
-            <span class="driver-team" [style.color]="driver.teamColor">{{ driver.team }}</span>
-        </div>
-        }
+   <div class="drivers-grid">
+  <div *ngFor="let driver of filteredDrivers" class="driver-card" (click)="abrirModal(driver)" [style.border-color]="driver.teamColor" style="cursor: pointer;">
+    <div class="card-top-bar" [style.background]="driver.teamColor"></div>
+    <span class="driver-number-bg">{{ driver.number }}</span>
+    <span class="driver-flag">{{ driver.nationality }}</span>
+    <img *ngIf="driver.logo" [src]="driver.logo" [alt]="driver.team" class="driver-team-logo">
+    <h3 class="driver-name">{{ driver.name }}</h3>
+    <span class="driver-team" [style.color]="driver.teamColor">{{ driver.team }}</span>
+  </div>
 
-        @if (filteredDrivers.length === 0) {
-        <div class="no-results">
-            <span class="no-results-icon">&#127950;</span>
-            <p class="no-results-text">Nenhum piloto encontrado para "<strong>{{ searchQuery }}</strong>"</p>
-        </div>
-        }
-    </div>
+  <div *ngIf="filteredDrivers.length === 0" class="no-results">
+    <span class="no-results-icon">&#127950;</span>
+    <p class="no-results-text">Nenhum piloto encontrado para "<strong>{{ searchQuery }}</strong>"</p>
+  </div>
 </div>
+
+</div>
+
+<app-modal-drivers [selectedDriver]="selectedDriver" [modalAberto]="modalAberto" (fechar)="fecharModal()"></app-modal-drivers>

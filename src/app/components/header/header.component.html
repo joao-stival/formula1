@@ -1,8 +1,8 @@
 <nav class="f1-navbar">
   <div class="navbar-inner">
     <a class="f1-brand" routerLink="/home">
-      <span class="f1-badge-nav">F1</span>
-      <span class="brand-text">HUB</span>
+     <img src="/image/logoPrincipal.png" alt="f1 logo" class="" style="max-width: 80px;">
+      <span class="brand-text" style="margin-left: -15px;">HUB</span>
     </a>
 
     <div class="nav-links">
@@ -15,12 +15,32 @@
       <a class="nav-link-btn" routerLink="/evento" routerLinkActive="active">
         Evento
       </a>
-      <a class="nav-link-btn" routerLink="/login" routerLinkActive="active">
-        Login
+      <a class="nav-link-btn" routerLink="/favoritos" routerLinkActive="active">
+        ⭐ Favoritos
       </a>
-      <a class="nav-link-btn" routerLink="/cadastro" routerLinkActive="active">
-        Cadastro
-      </a>
+      <div class="user-section">
+        <span *ngIf="isLoggedIn" class="user-email">{{ currentUserEmail }}</span>
+        <a 
+          *ngIf="!isLoggedIn"
+          class="nav-link-btn" 
+          routerLink="/login" 
+          routerLinkActive="active">
+          Login
+        </a>
+        <a 
+          *ngIf="!isLoggedIn"
+          class="nav-link-btn" 
+          routerLink="/cadastro" 
+          routerLinkActive="active">
+          Cadastro
+        </a>
+        <button 
+          *ngIf="isLoggedIn"
+          class="nav-link-btn logout-btn mt-1"
+          (click)="logout()">
+          Logout
+        </button>
+      </div>
     </div>
   </div>
 </nav>

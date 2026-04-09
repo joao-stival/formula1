@@ -1,0 +1,70 @@
+<div class="container mt-3">
+    <div class="d-flex justify-content-center align-items-center">
+        <h1 class="section-title text-uppercase fw-black text-light">Seus Corredores<br> <img src="/image/logoF1.png"
+                class="" style="max-width: 110px; max-height: 140px;" alt="F"> <span
+                style="margin-left: -20px; color: red; font-size: 30px;">avoritos! </span></h1>
+    </div>
+
+    <div *ngIf="!isLoggedIn" class="alert alert-warning mt-4" role="alert">
+        <strong>Você não está logado!</strong> Faça login para visualizar seus corredores favoritos.
+    </div>
+
+    <div *ngIf="isLoggedIn && favoriteDrivers.length === 0" class="alert alert-info mt-4" role="alert">
+        <strong>Sem favoritos ainda!</strong> Abra um perfil de corredor e clique na estrela para adicionar aos
+        favoritos.
+    </div>
+
+    <div *ngIf="isLoggedIn && favoriteDrivers.length > 0" class="favorites-grid mt-4">
+        <div *ngFor="let driver of favoriteDrivers" class="favorite-card">
+            <div class="card-header">
+                <h3 class="driver-name">{{ driver.name }}</h3>
+                <button class="btn-remove" (click)="removeFavorite(driver.number)" title="Remover dos favoritos"
+                    aria-label="Remover dos favoritos">
+                    ✕
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col-auto bg-wrapper" style="width: 900px;">
+
+                        <!-- 🔥 camada do background com opacidade -->
+                        <div class="bg-layer" [style.backgroundImage]="'url(' + driver.logo + ')'"
+                            [style.backgroundSize]="'80%'" [style.backgroundPosition]="'150% center'"
+                            [style.backgroundRepeat]="'no-repeat'"></div>
+
+                        <!-- 👇 imagem normal -->
+                        <img [src]="driver.foto" [alt]="driver.name" class="driver-image">
+
+                    </div>
+
+                    <div class="driver-info col mt-3">
+                        <p>
+                            <strong>Número:</strong>
+                            <span style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+                                {{ driver.number }}
+                            </span>
+                        </p>
+
+                        <p class="section-title text-uppercase">
+                            <strong>Equipe: </strong>
+                            <span class="section-title text-uppercase" style="font-weight: 600;"
+                                [style.color]="driver.teamColor">
+                                {{ driver.team }}
+                            </span>
+                        </p>
+
+                        <p>
+                            <strong>Nacionalidade: </strong>
+                            <span
+                                style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 20px; font-weight: 600;">
+                                {{ driver.nationality }}
+                            </span>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

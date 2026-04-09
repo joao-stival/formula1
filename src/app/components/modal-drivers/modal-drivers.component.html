@@ -1,0 +1,50 @@
+<div class="modal fade modal-dialog-centered" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+  [class.show]="modalAberto" [style.display]="modalAberto ? 'block' : 'none'" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-f1-surface text-light d-flex justify-content-between">
+        <h1 class="modal-title fs-5 text-light bg-f1-surface section-title-2 text-uppercase text-warning fw-black col"
+          id="exampleModalLabel">{{ selectedDriver?.name }}</h1>
+        <div class="header-actions">
+          <button class="btn-star" [class.favorited]="isFavorited" (click)="toggleFavorite()"
+            [title]="isFavorited ? 'Remover dos favoritos' : 'Adicionar aos favoritos'"
+            aria-label="Adicionar aos favoritos">
+            ★
+          </button>
+          <button type="button" class="btn-close btn-light text-light bg-light" (click)="fecharModal()"
+            aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="modal-body bg-f1-surface text-light position-relative" style="min-height: 300px; overflow: hidden;">
+
+        <!-- Background logo -->
+        <div *ngIf="selectedDriver?.logo" class="driver-logo-bg"
+          [style.backgroundImage]="'url(' + selectedDriver?.logo + ')'">
+        </div>
+
+        <!-- Conteúdo -->
+        <div class="content">
+          <p class="section-title text-uppercase fw-black">
+            <span [style.color]="selectedDriver?.teamColor" style="font-weight: 600;">Equipe:</span>
+            {{ selectedDriver?.team }}
+          </p>
+
+          <p class="section-title text-uppercase fw-black">
+            <span [style.color]="selectedDriver?.teamColor" style="font-weight: 600;">Número:</span>
+            {{ selectedDriver?.number }}
+          </p>
+
+          <p class="section-title text-uppercase fw-black">
+            <span [style.color]="selectedDriver?.teamColor" style="font-weight: 600;">Nacionalidade:</span>
+            {{ selectedDriver?.nationality }}
+          </p>
+
+          <img class="driver-img" [src]="selectedDriver?.foto" [alt]="selectedDriver?.name">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop fade" [class.show]="modalAberto" [style.display]="modalAberto ? 'block' : 'none'"
+  (click)="fecharModal()"></div>

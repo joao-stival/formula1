@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { ContentComponent } from './components/content/content.component';
-import { EventoComponent } from './evento/evento.component';
-import { LoginComponent } from './login/login.component';
-import { CadastroComponent } from './cadastro/cadastro.component';
+import { EventoComponent } from './components/evento/evento.component';
+import { LoginComponent } from './components/login/login.component';
+import { CadastroComponent } from './components/cadastro/cadastro.component';
+import { FavoritosComponent } from './components/favoritos/favoritos.component';
 
 export const routes: Routes = [
   {
@@ -35,6 +36,11 @@ export const routes: Routes = [
     path: 'cadastro',
     component: CadastroComponent,
     title: 'Cadastro - F1 Hub'
+  },
+  {
+    path: 'favoritos',
+    component: FavoritosComponent,
+    title: 'Favoritos - F1 Hub'
   }
 ];
 

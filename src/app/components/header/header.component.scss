@@ -37,6 +37,8 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .f1-badge-nav {
@@ -76,5 +78,36 @@
     color: #fff;
     border-bottom-color: var(--f1-red, #e10600);
     background: rgba(225, 6, 0, 0.1);
+  }
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.user-email {
+  color: #ffd700;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+
+.logout-btn {
+  color: rgba(255, 100, 100, 0.85);
+  
+  &:hover {
+    color: #ff6b6b;
+    background: rgba(255, 100, 100, 0.1);
+  }
+
+  &.active {
+    border-bottom-color: #ff6b6b;
+    background: rgba(255, 100, 100, 0.1);
   }
 }

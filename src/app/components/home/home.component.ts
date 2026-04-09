@@ -67,10 +67,10 @@ export class HomeComponent {
 
     obterEquipes(): Team[] {
         return [
-            { name: 'Red Bull Racing', color: '#3671C6', points: 146, logo: '/img/red-bull.png' },
-            { name: 'Ferrari', color: '#E8002D', points: 131, logo: '/img/ferrari.png' },
-            { name: 'McLaren', color: '#FF8000', points: 121, logo: '/img/mclaren.png' },
-            { name: 'Mercedes', color: '#27F4D2', points: 88, logo: '/img/Mercedes.png' },
+            { name: 'Red Bull Racing', color: '#3671C6', points: 146, logo: 'logos/red-bull.png' },
+            { name: 'Ferrari', color: '#E8002D', points: 131, logo: 'logos/ferrari.png' },
+            { name: 'McLaren', color: '#FF8000', points: 121, logo: 'logos/mclaren.png' },
+            { name: 'Mercedes', color: '#27F4D2', points: 88, logo: 'logos/Mercedes.png' },
         ];
     }
 

@@ -1,0 +1,19 @@
+<div id="home" class="login-container">
+    <form class="login-form" (ngSubmit)="login()">
+        <h1 class="mb-4">Login</h1>
+        
+        <div class="mb-3">
+            <label for="staticEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="staticEmail" placeholder="seu@email.com" [(ngModel)]="email" name="email">
+        </div>
+        
+        <div class="mb-3">
+            <label for="inputPassword" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="inputPassword" placeholder="Digite sua senha" [(ngModel)]="senha" name="senha">
+        </div>
+
+        <a class="register-link cadastre-login" routerLink="/cadastro" href="/cadastro">Cadastrar-se</a>
+        
+        <button type="submit" class="btn w-100" style="background-color: red;">Entrar</button>
+    </form>
+</div>

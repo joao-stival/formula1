@@ -1,0 +1,223 @@
+<div class="hero-container d-flex align-items-center justify-content-center">
+  <div class="backgroundEfect hero-corrida container mt-5 row">
+    <div class="col mt-5">
+      <h1 class="border-1 text-warning d-flex section-title text-uppercase text-warning fw-black"
+        style="font-size: 40px;">{{ corrida.nome }} <br> </h1>
+      <p class="text-light section-title text-uppercase text-white fw-black">{{ corrida.data }} - {{ corrida.local }}
+      </p>
+    </div>
+
+    <img src="image/carroVetorizado.png" alt="vetor car" class="hero-image col-4">
+  </div>
+</div>
+
+<section class="podio mt-5 mb-5" style="height: 600px;">
+  <div class="container">
+    <h1 class="mb-3 section-title-2 text-uppercase text-white fw-black" style="font-size: 60px; text-align: center;">
+      Pódio:</h1>
+    <div class="bg-light mt-5" style="height: 2px; margin-bottom: 20px;"></div>
+
+    <div class="d-flex justify-content-center align-items-end gap-4 mt-5">
+
+      <!-- 3º lugar -->
+      <div class="podio-col podio-terceiro">
+        <div class="podio-posicao" style="color: #B87333;">3º</div>
+        <div class="podio-card position-relative" (click)="abrirSelect(3)">
+
+          <div class="podio-card-header">
+            <h3 class="driver-name">{{ podio[3]?.name || '3º Lugar' }}</h3>
+            <button *ngIf="podio[3]" class="btn-clear" (click)="limparPodio(3, $event)" title="Remover">✕</button>
+          </div>
+
+          <div class="podio-card-body bg-wrapper" style="width: 100%;">
+
+            <!-- 🔥 camada do background com opacidade -->
+            <div class="bg-layer" *ngIf="podio[3]" [style.backgroundImage]="'url(' + podio[3].logo + ')'"
+              [style.backgroundSize]="'80%'" [style.backgroundPosition]="'150% center'"
+              [style.backgroundRepeat]="'no-repeat'"></div>
+
+            <!-- 👇 imagem normal -->
+            <img *ngIf="podio[3]" [src]="podio[3].foto" [alt]="podio[3].name" class="driver-image">
+
+            <div *ngIf="!podio[3]" class="empty-slot">
+              <span style="font-size: 2.5rem;">🥉</span>
+              <span>Clique para escolher</span>
+            </div>
+
+            <div class="driver-info mt-2" *ngIf="podio[3]">
+              <p><strong>Número:</strong> {{ podio[3].number }}</p>
+              <p class="section-title text-uppercase"><strong>Equipe: </strong>
+                <span style="font-weight: 600;" [style.color]="podio[3].teamColor">{{ podio[3].team }}</span>
+              </p>
+              <p><strong>Nacionalidade:</strong> {{ podio[3].nationality }}</p>
+            </div>
+
+          </div>
+
+          <div *ngIf="medalhaAberta === 3" class="piloto-select">
+            <div *ngFor="let p of getPilotosDisponiveis()" class="piloto-option"
+              (click)="selecionarPiloto(3, p, $event)">
+              <img [src]="p.foto" [alt]="p.name" width="32" height="32">
+              <span>{{ p.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1º lugar -->
+      <div class="podio-col podio-primeiro">
+        <div class="podio-posicao" style="color: #FFD700;">1º</div>
+        <div class="podio-card position-relative" (click)="abrirSelect(1)">
+
+          <div class="podio-card-header">
+            <h3 class="driver-name">{{ podio[1]?.name || '1º Lugar' }}</h3>
+            <button *ngIf="podio[1]" class="btn-clear" (click)="limparPodio(1, $event)" title="Remover">✕</button>
+          </div>
+
+          <div class="podio-card-body bg-wrapper" style="width: 100%;">
+
+            <!-- 🔥 camada do background com opacidade -->
+            <div class="bg-layer" *ngIf="podio[1]" [style.backgroundImage]="'url(' + podio[1].logo + ')'"
+              [style.backgroundSize]="'80%'" [style.backgroundPosition]="'150% center'"
+              [style.backgroundRepeat]="'no-repeat'"></div>
+
+            <!-- 👇 imagem normal -->
+            <img *ngIf="podio[1]" [src]="podio[1].foto" [alt]="podio[1].name" class="driver-image">
+            <div *ngIf="!podio[1]" class="empty-slot">
+              <span style="font-size: 2.5rem;">🏆</span>
+              <span>Clique para escolher</span>
+            </div>
+          </div>
+
+          <div class="driver-info mt-2 ms-4" style="margin-bottom: -10px;" *ngIf="podio[1]">
+            <p style="font-size: 20px;"><strong>Número:</strong> {{ podio[1].number }}</p>
+            <p class="section-title text-uppercase" style="font-size: 20px;"><strong>Equipe: </strong>
+              <span style="font-weight: 600;" [style.color]="podio[1].teamColor">{{ podio[1].team }}</span>
+            </p>
+            <p style="font-size: 20px;"><strong>Nacionalidade:</strong> {{ podio[1].nationality }}</p>
+          </div>
+
+          <div *ngIf="medalhaAberta === 1" class="piloto-select">
+            <div *ngFor="let p of getPilotosDisponiveis()" class="piloto-option"
+              (click)="selecionarPiloto(1, p, $event)">
+              <img [src]="p.foto" [alt]="p.name" width="32" height="32">
+              <span>{{ p.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2º lugar -->
+      <div class="podio-col podio-segundo">
+        <div class="podio-posicao" style="color: #C0C0C0;">2º</div>
+        <div class="podio-card position-relative" (click)="abrirSelect(2)">
+
+          <div class="podio-card-header">
+            <h3 class="driver-name">{{ podio[2]?.name || '2º Lugar' }}</h3>
+            <button *ngIf="podio[2]" class="btn-clear" (click)="limparPodio(2, $event)" title="Remover">✕</button>
+          </div>
+
+          <div class="podio-card-body bg-wrapper" style="width: 100%;">
+
+            <!-- 🔥 camada do background com opacidade -->
+            <div class="bg-layer" *ngIf="podio[2]" [style.backgroundImage]="'url(' + podio[2].logo + ')'"
+              [style.backgroundSize]="'80%'" [style.backgroundPosition]="'150% center'"
+              [style.backgroundRepeat]="'no-repeat'"></div>
+
+            <!-- 👇 imagem normal -->
+            <img *ngIf="podio[2]" [src]="podio[2].foto" [alt]="podio[2].name" class="driver-image">
+
+            <div *ngIf="!podio[2]" class="empty-slot">
+              <span style="font-size: 2.5rem;">🥈</span>
+              <span>Clique para escolher</span>
+            </div>
+
+            <div class="driver-info mt-2" *ngIf="podio[2]">
+              <p><strong>Número:</strong> {{ podio[2].number }}</p>
+              <p class="section-title text-uppercase"><strong>Equipe: </strong>
+                <span style="font-weight: 600;" [style.color]="podio[2].teamColor">{{ podio[2].team }}</span>
+              </p>
+              <p><strong>Nacionalidade:</strong> {{ podio[2].nationality }}</p>
+            </div>
+
+          </div>
+          <div *ngIf="medalhaAberta === 2" class="piloto-select">
+            <div *ngFor="let p of getPilotosDisponiveis()" class="piloto-option"
+              (click)="selecionarPiloto(2, p, $event)">
+              <img [src]="p.foto" [alt]="p.name" width="32" height="32">
+              <span>{{ p.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="d-flex align-items-center justify-content-center bg-f1-surface"
+  style="margin-top: 130px; min-height: 500px;">
+  <div class="row">
+    <div class="imagePista col mt-4 me-5">
+      <img src="image/pistaAutodramo.png" alt="interlagos" class="img-fluid">
+    </div>
+
+    <div class="col ms-5">
+      <h1 class="mb-3 section-title text-uppercase text-white fw-black">
+        Participantes:</h1>
+      <ul class="list-group" style="max-height: 300px; overflow-y: auto;">
+        <li *ngFor="let participante of participantes" class="list-group-item d-flex align-items-center"
+          [style.borderLeft]="'5px solid ' + participante.teamColor">
+          <img [src]="participante.logo" alt="logo" width="32" height="32" class="me-2">
+          <span class="fw-bold me-2">{{ participante.number }}</span>
+          <span class="me-2">{{ participante.name }}</span>
+          <span class="me-2">({{ participante.team }})</span>
+          <span>{{ participante.nationality }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<section class="hero-detalhes-corrida mt-5 d-flex align-items-center justify-content-center"
+  style="max-height: 800px; margin-bottom: 20px;">
+  <div class="container card-detalhes-corrida row">
+    <div class="col">
+      <h1 class="mb-3 section-title-2 text-uppercase text-white fw-black" style="font-size: 60px;">Detalhes da Corrida:
+      </h1>
+      <div class="bg-light mt-5" style="height: 2px; margin-bottom: 20px;"></div>
+      <div class="col" *ngFor="let detalhes of DetalhesCorrida; let i = index">
+        <p class="mb-3 mt-5 section-title" style="font-size: 30px;"><span
+            style="color: red; font-weight: 600;">GP:</span> {{ detalhes.nome }}</p>
+        <p class="mb-3 section-title" style="font-size: 30px;"><span style="color: red; font-weight: 600;">Data:</span>
+          {{ detalhes.data }}</p>
+        <p class="mb-3 section-title" style="font-size: 30px;"><span
+            style="color: red; font-weight: 600;">Voltas:</span> {{ detalhes.voltas }}</p>
+        <p class="mb-3 section-title" style="font-size: 30px;"><span style="color: red; font-weight: 600;">Distância
+            Total:</span> {{ detalhes.distancia }}</p>
+        <p class="mb-3 section-title" style="font-size: 30px;"><span style="color: red; font-weight: 600;">Duração
+            Estimada:</span> {{ detalhes.duracao }}</p>
+      </div>
+    </div>
+
+    <div class="col" style="min-height: 600px;">
+      <h1 class="section-title-2 text-uppercase text-white fw-black" style="font-size: 60px;">Teams:</h1>
+      <div class="bg-light mt-5" style="height: 2px; margin-bottom: 20px; margin-top: 17px;"></div>
+      <div id="carouselExampleAutoplaying" class="carousel slide">
+        <div class="carousel-inner">
+          <div class="carousel-item" *ngFor="let time of timesUnicos; let i = index"
+            [class.active]="i === currentSlide">
+            <img [src]="time.logo" [alt]="time.team" class="d-block w-100"
+              style="max-height: 400px; object-fit: contain;">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" (click)="prevSlide()">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" (click)="nextSlide()">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
