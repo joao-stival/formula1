@@ -10,11 +10,12 @@
 .navbar-inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px;
-  height: 56px;
+  padding: 0 1rem;
+  min-height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .f1-brand {
@@ -22,6 +23,7 @@
   align-items: center;
   gap: 8px;
   text-decoration: none;
+  min-height: 44px;
 }
 
 .brand-text {
@@ -33,6 +35,49 @@
   text-transform: uppercase;
 }
 
+/* ===== HAMBURGER ===== */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 4px;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.hamburger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+
+  &:nth-child(1).open {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  &:nth-child(2).open {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  &:nth-child(3).open {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+/* ===== NAV LINKS ===== */
 .nav-links {
   display: flex;
   align-items: center;
@@ -53,7 +98,8 @@
 }
 
 .nav-link-btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
@@ -64,6 +110,7 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   padding: 6px 14px;
+  min-height: 44px;
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
@@ -82,6 +129,8 @@
 }
 
 .user-section {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -90,17 +139,85 @@
   border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.bg-flag-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
 .user-email {
   color: #ffd700;
   font-size: 0.85rem;
   font-weight: 600;
   padding: 0 8px;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #ffee00;
+  }
+}
+
+/* ===== MOBILE (<768px) ===== */
+@media (max-width: 767px) {
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    padding: 8px 0 16px;
+    background: #111111;
+    border-top: 1px solid var(--f1-border, #2a2a2a);
+
+    &.nav-open {
+      display: flex;
+    }
+  }
+
+  .nav-link-btn {
+    justify-content: flex-start;
+    padding: 12px 16px;
+    border-bottom: none;
+    border-radius: 0;
+    font-size: 1rem;
+    min-height: 48px;
+
+    &.active {
+      border-bottom: none;
+      border-left: 3px solid var(--f1-red, #e10600);
+    }
+  }
+
+  .user-section {
+    flex-direction: column;
+    align-items: stretch;
+    margin-left: 0;
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 4px;
+    padding-top: 4px;
+    gap: 0;
+  }
+
+  .user-email {
+    padding: 12px 16px;
+    max-width: 100%;
+  }
 }
 
 .logout-btn {
   color: rgba(255, 100, 100, 0.85);
-  
+
   &:hover {
     color: #ff6b6b;
     background: rgba(255, 100, 100, 0.1);

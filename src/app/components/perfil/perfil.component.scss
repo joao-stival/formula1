@@ -1,0 +1,545 @@
+// Variáveis F1
+$primary-red: #DC0000;
+$accent-yellow: #FFD700;
+$dark-bg: var(--f1-surface);
+$card-bg: var(--f1-surface);
+$text-light: #ffffff;
+$text-secondary: #a0aec0;
+$border-color: rgba(255, 0, 0, 0.3);
+$focus-blue: #00d4ff;
+
+.perfil-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--f1-surface) 0%, var(--f1-surface) 50%, rgba(220, 0, 0, 0.05) 100%);
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+// Header F1
+.perfil-header {
+    position: relative;
+    margin-bottom: 40px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: linear-gradient(135deg, $primary-red 0%, #8b0000 100%);
+
+    .header-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+            repeating-linear-gradient(90deg, transparent, transparent 35px, rgba(255, 255, 255, 0.05) 35px, rgba(255, 255, 255, 0.05) 70px),
+            repeating-linear-gradient(0deg, transparent, transparent 35px, rgba(255, 255, 255, 0.05) 35px, rgba(255, 255, 255, 0.05) 70px);
+        opacity: 0.3;
+    }
+
+    .header-content {
+        position: relative;
+        padding: 40px 20px;
+        text-align: center;
+        z-index: 1;
+    }
+
+    .profile-avatar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 3px solid $accent-yellow;
+        border-radius: 50%;
+        margin-bottom: 15px;
+        font-size: 48px;
+        backdrop-filter: blur(10px);
+        animation: float 3s ease-in-out infinite;
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    }
+
+    .perfil-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: $text-light;
+        margin: 10px 0 5px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .perfil-subtitle {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0;
+        letter-spacing: 0.5px;
+    }
+}
+
+// Formulário
+.perfil-form-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.perfil-form {
+    background: linear-gradient(135deg,
+            $card-bg 0%,
+            $card-bg 60%,
+            rgba(255, 0, 0, 0.15) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 4px solid $primary-red;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6),
+        inset 0 0 40px rgba(255, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 1px solid rgba(255, 0, 0, 0.2);
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom, #ff0000, transparent);
+        animation: pulseLine 2s infinite;
+    }
+
+    @media (max-width: 768px) {
+        padding: 25px;
+    }
+}
+
+// Seções de Formulário
+.form-section {
+    margin-bottom: 45px;
+    padding-bottom: 35px;
+    border-bottom: 2px solid $border-color;
+    position: relative;
+
+    &:last-of-type {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: $text-light;
+        margin: 0 0 25px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+        padding-left: 0;
+
+        &::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, $primary-red, $accent-yellow);
+            border-radius: 2px;
+            margin-right: 5px;
+        }
+
+        .section-icon {
+            font-size: 24px;
+        }
+    }
+}
+
+// Grid de Formulário
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+// Grupos de Formulário
+.form-group {
+    position: relative;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: $accent-yellow;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+// Input Wrapper
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+// Inputs e Selects
+.form-input,
+.form-control {
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    border-radius: 8px;
+    color: $text-light;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+
+    &::placeholder {
+        color: $text-secondary;
+    }
+
+    &:hover {
+        border-color: $primary-red;
+        background: rgba(220, 0, 0, 0.05);
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $primary-red;
+        background: rgba(220, 0, 0, 0.08);
+        box-shadow: 0 0 0 3px rgba(220, 0, 0, 0.15);
+    }
+
+    &:-webkit-autofill {
+        -webkit-box-shadow: inset 0 0 0 1000px rgba(255, 255, 255, 0.05);
+        -webkit-text-fill-color: $text-light;
+    }
+}
+
+.form-select {
+    cursor: pointer;
+    appearance: none;
+    padding-right: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23DC0000' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+
+    option {
+        background: #2c2c2c;
+        color: #fff;
+    }
+}
+
+// Bootstrap Compatibility
+.form-control:focus {
+    border-color: $primary-red;
+    box-shadow: 0 0 0 3px rgba(220, 0, 0, 0.15);
+}
+
+// Focus Line Animation
+.input-focus-line {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: red;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 1px;
+    z-index: 0;
+}
+
+.form-input:focus+.input-focus-line {
+    width: 100%;
+}
+
+// Botões de Ação
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
+    justify-content: flex-end;
+
+    @media (max-width: 768px) {
+        flex-direction: column-reverse;
+        gap: 12px;
+    }
+}
+
+.btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+
+    .btn-icon {
+        font-size: 16px;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+
+    &:active::before {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, $primary-red, #8b0000);
+    color: $text-light;
+    box-shadow: 0 4px 15px rgba(220, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(220, 0, 0, 0.6),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.btn-secondary {
+    background: transparent;
+    color: $text-light;
+    border: 2px solid $border-color;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+        border-color: $primary-red;
+        background: rgba(220, 0, 0, 0.1);
+        color: $primary-red;
+    }
+
+    &:active {
+        background: rgba(220, 0, 0, 0.2);
+    }
+}
+
+// Bootstrap Button Sizes
+.btn-lg {
+    padding: 14px 32px;
+    font-size: 16px;
+}
+
+// Responsivo
+@media (max-width: 768px) {
+    .perfil-container {
+        padding: 15px;
+    }
+
+    .perfil-header {
+        margin-bottom: 30px;
+
+        .header-content {
+            padding: 30px 20px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            font-size: 36px;
+        }
+
+        .perfil-title {
+            font-size: 24px;
+        }
+
+        .perfil-subtitle {
+            font-size: 12px;
+        }
+    }
+
+    .perfil-form {
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .form-section {
+        margin-bottom: 30px;
+        padding-bottom: 25px;
+    }
+}
+
+/* ===== ANIMAÇÃO F1 ===== */
+@keyframes pulseLine {
+    0% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.4;
+    }
+}
+
+/* ===== BOOTSTRAP UTILITIES ===== */
+
+// Display & Flex
+.d-flex {
+    display: flex;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.justify-content-end {
+    justify-content: flex-end;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+// Gaps
+.gap-2 {
+    gap: 0.5rem;
+}
+
+.gap-3 {
+    gap: 1rem;
+}
+
+// Spacing - Margin
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.mb-5 {
+    margin-bottom: 3rem;
+}
+
+.me-2 {
+    margin-right: 0.5rem;
+}
+
+.mt-0 {
+    margin-top: 0;
+}
+
+// Spacing - Padding
+.py-5 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.pb-4 {
+    padding-bottom: 1.5rem;
+}
+
+// Borders
+.border-bottom {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    &.border-danger-subtle {
+        border-bottom-color: rgba(220, 0, 0, 0.2);
+    }
+}
+
+// Shadows
+.shadow-lg {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(255, 0, 0, 0.05);
+}
+
+// Border Radius
+.rounded-4 {
+    border-radius: 1rem;
+}
+
+// Container
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 900px;
+}
+
+// Grid
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -0.75rem;
+    margin-left: -0.75rem;
+
+    >* {
+        padding-right: 0.75rem;
+        padding-left: 0.75rem;
+    }
+}
+
+.col-md-6 {
+    @media (min-width: 768px) {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    @media (max-width: 767.98px) {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+// Gap for rows
+.g-4 {
+    --gap: 1.5rem;
+    row-gap: var(--gap, 1.5rem);
+    column-gap: var(--gap, 1.5rem);
+    margin-top: calc(-1 * var(--gap, 1.5rem));
+    margin-right: calc(-0.5 * var(--gap, 1.5rem));
+    margin-bottom: 0;
+    margin-left: calc(-0.5 * var(--gap, 1.5rem));
+
+    >* {
+        margin-top: var(--gap, 1.5rem);
+    }
+}

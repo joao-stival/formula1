@@ -1,34 +1,49 @@
 .login-container {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    padding: 20px;
+    padding: 1rem;
     overflow: hidden;
 
-        &::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("../../../assets/image/fundo_senna.jpg") center/cover no-repeat;
-            filter: grayscale(1) brightness(0.5);
-            z-index: -1;
-        }
+    .section-title {
+        letter-spacing: 3px;
+        position: relative;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("../../../assets/image/fundo_senna.jpg") center/cover no-repeat;
+        filter: grayscale(1) brightness(0.5);
+        z-index: -1;
+    }
 
     .login-form {
-        background: white;
+        background: linear-gradient(135deg, var(--f1-surface) 0%, var(--f1-surface) 60%, rgba(255, 0, 0, 0.15) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-left: 4px solid #DC0000;
+        border-radius: 16px;
         padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(255, 0, 0, 0.05);
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
         width: 100%;
-        max-width: 400px;
+        max-width: 500px;
+
+        @media (min-width: 480px) {
+            padding: 40px;
+        }
 
         h1 {
             text-align: center;
-            color: #333;
+            color: #ffffff;
             font-weight: 900;
             margin-bottom: 30px;
             font-family: 'Barlow Condensed', sans-serif;
@@ -38,36 +53,67 @@
 
         .form-label {
             font-weight: 600;
-            color: #333;
+            color: #FFD700;
             font-size: 0.95rem;
             margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .form-control {
-            height: 45px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: all 0.3s;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: auto;
+
+            &:hover {
+                border-color: #DC0000;
+                background: rgba(220, 0, 0, 0.05);
+            }
+
+            &:focus {
+                outline: none;
+                border-color: #DC0000;
+                background: rgba(220, 0, 0, 0.08);
+                box-shadow: 0 0 0 3px rgba(220, 0, 0, 0.15);
+            }
 
             &::placeholder {
-                color: #999;
+                color: #a0aec0;
             }
         }
 
         .btn {
-            height: 45px;
-            font-size: 1rem;
-            font-weight: 600;
+            padding: 14px 24px;
+            font-size: 0.95rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 20px;
             transition: all 0.3s;
+            color: #fff;
+            background: linear-gradient(135deg, #DC0000 0%, #8b0000 100%);
+            border: none;
+            border-radius: 8px;
+            height: auto;
+            box-shadow: 0 4px 15px rgba(220, 0, 0, 0.3);
+            cursor: pointer;
 
             &:hover {
-                background: #cc0000;
+                background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+                color: #fff;
                 transform: translateY(-2px);
-                box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
+                box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+            }
+
+            &:active {
+                transform: translateY(0px);
+                box-shadow: 0 2px 10px rgba(220, 0, 0, 0.3);
             }
         }
     }
@@ -81,4 +127,99 @@
 .ng-invalid:focus {
     border-color: rgb(243, 18, 18) !important;
     box-shadow: 0 0 0 0.2rem rgba(243, 18, 18, 0.25) !important;
+}
+
+.cadastre-login {
+    font-size: 0.95rem;
+    color: #FFD700;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.cadastre-login:hover {
+    color: #ffffff;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.piloto-select-wrapper {
+    cursor: pointer;
+    user-select: none;
+}
+
+.piloto-trigger {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 0, 0, 0.3) !important;
+    border-radius: 8px !important;
+    color: #ffffff !important;
+    min-height: 50px;
+    cursor: pointer;
+
+    &:hover {
+        border-color: #DC0000 !important;
+        background: rgba(220, 0, 0, 0.05) !important;
+    }
+
+    .btn-limpar {
+        background: none;
+        border: none;
+        color: #a0aec0;
+        font-size: 0.9rem;
+        padding: 0 4px;
+        cursor: pointer;
+        line-height: 1;
+
+        &:hover {
+            color: #DC0000;
+        }
+    }
+}
+
+.piloto-select {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: #2c2c2c;
+    border-radius: 12px;
+    z-index: 1000;
+    max-height: 280px;
+    overflow-y: auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    padding: 6px 0;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #DC0000;
+        border-radius: 3px;
+    }
+
+    .piloto-option {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 15px;
+        cursor: pointer;
+        color: #fff;
+        transition: all 0.2s;
+
+        img {
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        span:first-of-type {
+            font-size: 0.9rem;
+        }
+
+        &:hover {
+            background: rgba(220, 0, 0, 0.2);
+            padding-left: 20px;
+        }
+    }
 }

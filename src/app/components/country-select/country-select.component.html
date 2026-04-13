@@ -1,0 +1,37 @@
+<div class="cs-wrapper">
+    <!-- Trigger button -->
+    <div class="cs-trigger" (click)="toggleDropdown()" [class.cs-open]="isOpen">
+        <div class="cs-selected" *ngIf="selectedPais; else placeholder">
+            <img class="cs-flag" [src]="getFlagUrl(selectedPais.sigla)" [alt]="selectedPais.nome" loading="lazy">
+            <span class="cs-label">{{ selectedPais.nome }}</span>
+        </div>
+        <ng-template #placeholder>
+            <span class="cs-placeholder">Selecione um país</span>
+        </ng-template>
+        <div class="cs-trigger-actions">
+            <button *ngIf="selectedPais" class="cs-clear-btn" type="button" (click)="clearSelection($event)"
+                title="Limpar seleção">✕</button>
+            <span class="cs-arrow" [class.cs-arrow-up]="isOpen">▾</span>
+        </div>
+    </div>
+
+    <div class="cs-dropdown " style="position: absolute;" *ngIf="isOpen">
+        <!-- Search -->
+        <div class="cs-search-wrapper">
+            <input class="cs-search-input" type="text" placeholder="Buscar país..." [formControl]="searchControl"
+                (click)="$event.stopPropagation()" autocomplete="off">
+        </div>
+
+        <ul class="cs-list">
+            <li *ngFor="let pais of filteredPaises" class="cs-option"
+                [class.cs-option-selected]="pais.sigla === selectedCountry" (click)="selectPais(pais)">
+                <img class="cs-flag" [src]="getFlagUrl(pais.sigla)" [alt]="pais.nome" loading="lazy">
+                <span class="cs-option-name">{{ pais.nome }}</span>
+                <span *ngIf="pais.sigla === selectedCountry" class="cs-check">✓</span>
+            </li>
+            <li *ngIf="filteredPaises.length === 0" class="cs-no-results">
+                Nenhum país encontrado
+            </li>
+        </ul>
+    </div>
+</div>

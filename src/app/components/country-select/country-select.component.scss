@@ -1,0 +1,213 @@
+$primary-red: #DC0000;
+$accent-yellow: #FFD700;
+$text-light: #ffffff;
+$text-secondary: #a0aec0;
+$border-color: rgba(255, 0, 0, 0.3);
+
+.cs-wrapper {
+    position: relative;
+    width: 100%;
+    font-size: 14px;
+}
+
+/* Trigger — mesma aparência que .form-input/.form-control */
+.cs-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: $text-light;
+    font-size: 14px;
+    font-weight: 500;
+
+    &:hover {
+        border-color: $primary-red;
+        background: rgba(220, 0, 0, 0.05);
+    }
+
+    &.cs-open {
+        border-color: $primary-red;
+        background: rgba(220, 0, 0, 0.08);
+        box-shadow: 0 0 0 3px rgba(220, 0, 0, 0.15);
+    }
+}
+
+.cs-selected {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.cs-placeholder {
+    color: $text-secondary;
+    flex: 1;
+}
+
+.cs-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cs-trigger-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.cs-clear-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.75rem;
+    padding: 2px 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    line-height: 1;
+    transition: color 0.15s, background 0.15s;
+
+    &:hover {
+        color: $text-light;
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Seta idêntica ao .form-select */
+.cs-arrow {
+    width: 12px;
+    height: 12px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23DC0000' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.2s;
+    display: inline-block;
+    flex-shrink: 0;
+
+    &.cs-arrow-up {
+        transform: rotate(180deg);
+    }
+}
+
+/* Dropdown */
+.cs-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+    background: #2c2c2c;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    overflow: hidden;
+}
+
+/* Search */
+.cs-search-wrapper {
+    padding: 10px 10px 6px;
+    border-bottom: 1px solid rgba(255, 0, 0, 0.15);
+}
+
+.cs-search-input {
+    width: 100%;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    color: $text-light;
+    font-size: 14px;
+    font-weight: 500;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &::placeholder {
+        color: $text-secondary;
+    }
+
+    &:focus {
+        border-color: $primary-red;
+        background: rgba(220, 0, 0, 0.08);
+        box-shadow: 0 0 0 3px rgba(220, 0, 0, 0.15);
+    }
+}
+
+/* List */
+.cs-list {
+    list-style: none;
+    margin: 0;
+    padding: 6px 0;
+    max-height: 240px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(220, 0, 0, 0.4) transparent;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(220, 0, 0, 0.4);
+        border-radius: 4px;
+    }
+}
+
+/* Option */
+.cs-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: $text-light;
+    transition: background 0.15s;
+
+    &:hover {
+        background: rgba(220, 0, 0, 0.08);
+    }
+
+    &.cs-option-selected {
+        background: rgba(220, 0, 0, 0.15);
+        color: $accent-yellow;
+    }
+}
+
+.cs-flag {
+    width: 28px;
+    height: 20px;
+    object-fit: contain;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.cs-option-name {
+    flex: 1;
+}
+
+.cs-check {
+    color: $primary-red;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.cs-no-results {
+    padding: 14px;
+    text-align: center;
+    color: $text-secondary;
+    font-size: 14px;
+}

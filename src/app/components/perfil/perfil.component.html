@@ -1,0 +1,164 @@
+<div class="perfil-container py-5">
+    <div class="perfil-form-container container">
+        <form class="perfil-form shadow-lg rounded-4" [formGroup]="perfilForm" (ngSubmit)="salvar()">
+            <div class="form-section border-bottom border-danger-subtle mb-5 pb-4">
+                <h2 class="section-title mb-4 d-flex align-items-center">
+                    Informações Pessoais
+                </h2>
+
+                <div class="form-grid row">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nome" class="form-label">Nome Completo</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="nome" class="form-input form-control"
+                                        placeholder="Digite seu nome" formControlName="nome">
+                                    <span class="input-focus-line"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                <div class="input-wrapper">
+                                    <input type="email" id="email" class="form-input form-control"
+                                        placeholder="seu@email.com" formControlName="email">
+                                    <span class="input-focus-line"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="telefone" class="form-label">Telefone</label>
+                                <div class="input-wrapper">
+                                    <input type="tel" id="telefone" class="form-input form-control"
+                                        placeholder="(XX) XXXXX-XXXX" formControlName="telefone">
+                                    <span class="input-focus-line"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+                                <div class="input-wrapper">
+                                    <input type="date" id="dataNascimento" class="form-input form-control"
+                                        formControlName="dataNascimento">
+                                    <span class="input-focus-line"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section border-bottom border-danger-subtle mb-5 pb-4">
+                <h2 class="section-title mb-4 d-flex align-items-center">
+                    Preferências
+                </h2>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="pilotoFavorito" class="form-label">Piloto Favorito</label>
+                            <div class="input-wrapper">
+                                <select id="pilotoFavorito" class="form-input form-select form-control"
+                                    formControlName="pilotoFavorito">
+                                    <option value="">Selecione um piloto</option>
+                                    <option value="1">Max Verstappen</option>
+                                    <option value="16">Charles Leclerc</option>
+                                    <option value="44">Lewis Hamilton</option>
+                                    <option value="4">Lando Norris</option>
+                                    <option value="81">Oscar Piastri</option>
+                                    <option value="63">George Russell</option>
+                                    <option value="55">Carlos Sainz</option>
+                                    <option value="14">Fernando Alonso</option>
+                                    <option value="22">Yuki Tsunoda</option>
+                                    <option value="12">Kimi Antonelli</option>
+                                    <option value="10">Pierre Gasly</option>
+                                    <option value="5">Gabriel Bortoleto</option>
+                                    <option value="87">Oliver Bearman</option>
+                                    <option value="31">Esteban Ocon</option>
+                                    <option value="27">Nico Hülkenberg</option>
+                                    <option value="23">Alexander Albon</option>
+                                    <option value="18">Lance Stroll</option>
+                                    <option value="7">Jack Doohan</option>
+                                    <option value="30">Liam Lawson</option>
+                                    <option value="6">Isack Hadjar</option>
+                                </select>
+                                <span class="input-focus-line"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="equipesFavorita" class="form-label">Equipe Favorita</label>
+                            <div class="input-wrapper">
+                                <select id="equipesFavorita" class="form-input form-select form-control"
+                                    formControlName="equipesFavorita">
+                                    <option value="">Selecione uma equipe</option>
+                                    <option value="Red Bull Racing">Red Bull Racing</option>
+                                    <option value="Ferrari">Ferrari</option>
+                                    <option value="McLaren">McLaren</option>
+                                    <option value="Mercedes">Mercedes</option>
+                                    <option value="Aston Martin">Aston Martin</option>
+                                    <option value="Alpine">Alpine</option>
+                                    <option value="Williams">Williams</option>
+                                    <option value="Haas">Haas</option>
+                                    <option value="Kick Sauber">Kick Sauber</option>
+                                    <option value="Racing Bulls">Racing Bulls</option>
+                                </select>
+                                <span class="input-focus-line"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section mb-5 pb-4">
+                <h2 class="section-title mb-4 d-flex align-items-center">
+                    Localização
+                </h2>
+
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <div class="form-group">
+                            <label class="form-label">País</label>
+                            <app-country-select [selectedCountry]="perfilForm.get('pais')?.value ?? ''"
+                                (selectedCountryChange)="perfilForm.get('pais')?.setValue($event)">
+                            </app-country-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="cidade" class="form-label">Cidade</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="cidade" class="form-input form-control" placeholder="Sua cidade"
+                                    formControlName="cidade">
+                                <span class="input-focus-line"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (mensagem) {
+            <div class="alert alert-success mb-4">{{ mensagem }}</div>
+            }
+
+            <div class="form-actions d-flex gap-3 justify-content-end flex-wrap">
+                <button type="button" class="btn btn-secondary btn-lg d-flex align-items-center gap-2"
+                    (click)="cancelar()">
+                    <span class="btn-icon">↺</span>
+                    Cancelar
+                </button>
+                <button type="submit" class="btn btn-primary btn-lg d-flex align-items-center gap-2">
+                    <span class="btn-icon">✓</span>
+                    Salvar Alterações
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

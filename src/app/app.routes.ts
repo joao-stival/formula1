@@ -5,6 +5,7 @@ import { EventoComponent } from './components/evento/evento.component';
 import { LoginComponent } from './components/login/login.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { FavoritosComponent } from './components/favoritos/favoritos.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,11 @@ export const routes: Routes = [
     path: 'favoritos',
     component: FavoritosComponent,
     title: 'Favoritos - F1 Hub'
+  },
+  {
+    path: 'perfil',
+    component: PerfilComponent,
+    title: 'Perfil - F1 Hub'
   }
 ];
 

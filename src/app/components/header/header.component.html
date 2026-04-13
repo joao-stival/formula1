@@ -1,43 +1,50 @@
 <nav class="f1-navbar">
   <div class="navbar-inner">
-    <a class="f1-brand" routerLink="/home">
-     <img src="/image/logoPrincipal.png" alt="f1 logo" class="" style="max-width: 80px;">
+    <a class="f1-brand" routerLink="/home" (click)="fecharMenu()">
+      <img src="/image/logoPrincipal.png" alt="f1 logo" style="max-width: 80px;">
       <span class="brand-text" style="margin-left: -15px;">HUB</span>
     </a>
 
-    <div class="nav-links">
-      <a class="nav-link-btn" routerLink="/home" routerLinkActive="active">
+    <!-- Hambúrguer (mobile) -->
+    <button class="hamburger-btn" (click)="toggleMenu()" [attr.aria-expanded]="menuAberto" aria-label="Abrir menu">
+      <span class="hamburger-line" [class.open]="menuAberto"></span>
+      <span class="hamburger-line" [class.open]="menuAberto"></span>
+      <span class="hamburger-line" [class.open]="menuAberto"></span>
+    </button>
+
+    <div class="nav-links" [class.nav-open]="menuAberto">
+      <a class="nav-link-btn" routerLink="/home" routerLinkActive="active" (click)="fecharMenu()">
         Home
       </a>
-      <a class="nav-link-btn" routerLink="/content" routerLinkActive="active">
+      <a class="nav-link-btn" routerLink="/content" routerLinkActive="active" (click)="fecharMenu()">
         Pilotos
       </a>
-      <a class="nav-link-btn" routerLink="/evento" routerLinkActive="active">
+      <a class="nav-link-btn" routerLink="/evento" routerLinkActive="active" (click)="fecharMenu()">
         Evento
       </a>
-      <a class="nav-link-btn" routerLink="/favoritos" routerLinkActive="active">
+      <a class="nav-link-btn" routerLink="/favoritos" routerLinkActive="active" (click)="fecharMenu()">
         ⭐ Favoritos
       </a>
       <div class="user-section">
-        <span *ngIf="isLoggedIn" class="user-email">{{ currentUserEmail }}</span>
-        <a 
-          *ngIf="!isLoggedIn"
-          class="nav-link-btn" 
-          routerLink="/login" 
-          routerLinkActive="active">
+        <div class="bg-flag-layer"
+          [style.backgroundImage]="currentUserPais ? 'url(' + getFlagUrl(currentUserPais) + ')' : 'none'"
+          [style.backgroundSize]="'50%'" [style.backgroundRepeat]="'no-repeat'"
+          [style.backgroundPosition]="'-2% center'"></div>
+        <span *ngIf="isLoggedIn" class="user-email" (click)="irParaPerfil()"
+          style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+          <img *ngIf="equipeFavoritaLogo" [src]="equipeFavoritaLogo" alt="equipe"
+            style="max-width: 28px; height: auto; object-fit: contain; opacity: 1; position: relative; z-index: 2;">
+          {{ currentUserNome || currentUserEmail }}
+        </span>
+        <a *ngIf="!isLoggedIn" class="nav-link-btn" routerLink="/login" routerLinkActive="active"
+          (click)="fecharMenu()">
           Login
         </a>
-        <a 
-          *ngIf="!isLoggedIn"
-          class="nav-link-btn" 
-          routerLink="/cadastro" 
-          routerLinkActive="active">
+        <a *ngIf="!isLoggedIn" class="nav-link-btn" routerLink="/cadastro" routerLinkActive="active"
+          (click)="fecharMenu()">
           Cadastro
         </a>
-        <button 
-          *ngIf="isLoggedIn"
-          class="nav-link-btn logout-btn mt-1"
-          (click)="logout()">
+        <button *ngIf="isLoggedIn" class="nav-link-btn logout-btn mt-2" (click)="logout(); fecharMenu()">
           Logout
         </button>
       </div>
