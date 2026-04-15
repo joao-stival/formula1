@@ -106,6 +106,7 @@
 
 .bg-wrapper {
   position: relative;
+  width: 100%;
 }
 
 .bg-layer {
@@ -118,4 +119,22 @@
 .driver-image {
   position: relative;
   z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .favorites-grid {
+    display: flex;              // troca grid por flex
+    overflow-x: auto;           // ativa scroll horizontal
+    gap: 16px;
+    padding-bottom: 10px;
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .favorite-card {
+    flex: 0 0 85%;              // largura do card no mobile
+    min-width: 85%;
+    scroll-snap-align: center;
+  }
 }

@@ -276,7 +276,6 @@
     0 0 40px rgba(255, 215, 0, 0.2);
 }
 
-/* ANIMAÇÃO DE BRILHO */
 @keyframes glowGold {
   0% {
     box-shadow:
@@ -343,7 +342,8 @@
   transform: scale(1.05);
 }
 
-/* ===== EVENTO HERO TITLES ===== */
+// titulos
+
 .evento-hero-title {
   font-size: clamp(1.5rem, 5vw, 2.5rem);
 }
@@ -356,37 +356,83 @@
   font-size: clamp(2rem, 6vw, 3.75rem);
 }
 
-/* ===== PODIO RESPONSIVE LAYOUT ===== */
+// podio responsivo
+
 .podio {
   padding-bottom: 2rem;
 }
 
-.podio-flex {
+ .podio-flex {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 6%;
+  margin-right: 6%;
+  max-width: 80%;
+  gap: 1rem;
   padding-top: 2rem;
+  margin-bottom: -130px;
+
+  flex-wrap: nowrap;
 
   @media (min-width: 768px) {
+    margin-left: 10%;
+    max-width: 100%;
     flex-direction: row;
     justify-content: center;
     align-items: flex-end;
     gap: 1.5rem;
     padding-top: 5rem;
+    margin-bottom: -130px;
+  }
+}
+
+@media (min-width: 768px) {
+  .podio-col {
+    width: 220px; 
+    max-width: 220px;
   }
 }
 
 .podio-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 320px;
-  flex-shrink: 0;
+  flex: 1;
+  max-width: 33%;
+  min-width: 0;
+
 
   @media (min-width: 768px) {
     width: 260px;
+  }
+}
+
+@media (max-width: 767px) {
+  .driver-image {
+    height: 140px;
+  }
+
+  .empty-slot {
+    height: 140px;
+  }
+
+  .podio-primeiro .card-body,
+  .podio-segundo .card-body,
+  .podio-terceiro .card-body {
+    min-height: auto; // 👈 remove alturas fixas
+  }
+
+  .driver-info {
+    display: none; // opcional (economiza espaço)
+  }
+}
+
+@media (max-width: 767px) {
+  .driver-name {
+    font-size: 0.8rem;
+  }
+
+  .podio-posicao {
+    font-size: 1.2rem;
   }
 }
 
@@ -456,7 +502,8 @@
   }
 }
 
-/* ===== PARTICIPANTES SECTION ===== */
+// participantes 
+
 .participantes-wrapper {
   padding: 3rem 1rem;
   margin-top: 2rem;
@@ -560,7 +607,6 @@
   letter-spacing: 1px;
 }
 
-/* RIGHT */
 .driver-right {
   font-size: 0.8rem;
   color: #ccc;
@@ -622,3 +668,4 @@
 .linear {
   background: linear-gradient(180deg, #000000, #0a0a0a);
 }
+

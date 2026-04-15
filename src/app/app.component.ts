@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { FavoritesService } from './services/favorites.service';
+import { EventoComponent } from "./components/evento/evento.component";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,6 @@ export class AppComponent implements OnInit {
   constructor(private favoritesService: FavoritesService) {}
 
   ngOnInit() {
-    // O FavoritesService carregará automaticamente os favoritos salvos
   }
 }
 

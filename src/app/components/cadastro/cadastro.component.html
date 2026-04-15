@@ -8,7 +8,7 @@
             <input type="text" class="form-control" id="nome" placeholder="Seu nome completo" formControlName="nome">
 
             <ng-container *ngIf="cadastroForm.get('nome')?.invalid && cadastroForm.get('nome')?.touched">
-                <small style="color: red;">Nome inválido (mínimo 3 caracteres).</small>
+                <small class="mt-1" style="color: rgba(255, 255, 255, 0.856); border-bottom: 1px solid rgb(255, 0, 0);">Nome inválido (mínimo 3 caracteres).</small>
             </ng-container>
 
         </div>
@@ -49,7 +49,7 @@
                 formControlName="email">
 
             <ng-container *ngIf="cadastroForm.get('email')?.invalid && cadastroForm.get('email')?.touched">
-                <small style="color: red;">Email inválido.</small>
+                <small class="mt-1" style="color: rgba(255, 255, 255, 0.856); border-bottom: 1px solid rgb(255, 0, 0);">Email inválido.</small>
             </ng-container>
 
         </div>
@@ -61,7 +61,7 @@
                 formControlName="senha">
 
             <ng-container *ngIf="cadastroForm.get('senha')?.invalid && cadastroForm.get('senha')?.touched">
-                <small style="color: red;">Senha inválida (mínimo 6 caracteres).</small>
+                <small class="mt-1" style="color: rgba(255, 255, 255, 0.856); border-bottom: 1px solid rgb(255, 0, 0);">Senha inválida (mínimo 6 caracteres).</small>
             </ng-container>
 
         </div>
@@ -74,7 +74,7 @@
 
             <ng-container
                 *ngIf="cadastroForm.get('confirmarSenha')?.invalid && cadastroForm.get('confirmarSenha')?.touched">
-                <small style="color: red;">As senhas não coincidem.</small>
+                <small class="mt-1" style="color: rgba(255, 255, 255, 0.856); border-bottom: 1px solid rgb(255, 0, 0);">As senhas não coincidem.</small>
             </ng-container>
 
         </div>
