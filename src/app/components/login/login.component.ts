@@ -1,35 +1,58 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import {FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { LoginService } from '../../services/login.service';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  email: string = '';
-  senha: string = '';
-
-  user: any;
+  loginForm: FormGroup;
 
   constructor(
+    fb: FormBuilder,
     private loginService: LoginService,
-    private router: Router,
-  ) {}
+    private router: Router
+  ) {
+    this.loginForm = fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]]
+    });
+  } 
 
-  login() {
-  this.user = this.loginService.login(this.email, this.senha);
-  if (this.user) {
-    // Em vez de usar o router, use o window.location
-    window.location.href = '/home'; 
-  } else {
-    alert('Login falhou: email ou senha incorretos');
+ onSubmit() {
+
+  Object.keys(this.loginForm.controls).forEach(key => {
+    const controlErrors = this.loginForm.get(key)?.errors;
+    if (controlErrors != null) {
+      console.log('Erro no campo: ' + key, controlErrors);
+    }
+  });
+
+    if (this.loginForm.valid) {
+      const payload = {
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password
+      };
+
+      this.loginService.login(payload).subscribe({
+        next: (res) => {
+          alert('Login realizado com sucesso!');
+          this.router.navigate(['/dashboard']); // ou sua rota principal
+        },
+        error: (err) => {
+          alert('E-mail ou senha incorretos.');
+          console.error(err);
+        }
+      });
+    } else {
+      console.log('Formulário inválido:', this.loginForm.errors);
+      this.loginForm.markAllAsTouched();
+    }
   }
-}
-
 }

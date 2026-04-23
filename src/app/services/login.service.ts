@@ -1,91 +1,82 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { FavoritesService } from './favorites.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject, tap, finalize } from 'rxjs';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
+export interface LoginResponse {
+    access_token: string;
+    token_type: string;
+    user: any;
+}
 
 @Injectable({
     providedIn: 'root'
 })
 export class LoginService {
-    private userSubject = new BehaviorSubject<any>(null);
-    public user$: Observable<any> = this.userSubject.asObservable();
+    private apiUrl = 'http://localhost:8000/api';
 
-    users = [
-        { email: 'joao@gmail.com', senha: '102030a', equipesFavorita: 'Ferrari' },
-        { email: 'maria@gmail.com', senha: '102030b', equipesFavorita: 'Red Bull Racing' },
-        { email: 'pedro@gmail.com', senha: '102030d', equipesFavorita: 'McLaren' }
-    ];
+    // O BehaviorSubject permite que o Header e outros componentes 
+    // "escutem" quando o usuário loga ou desloga em tempo real.
+    private userSubject = new BehaviorSubject<any>(this.getUserFromStorage());
+    public user$ = this.userSubject.asObservable();
 
-    constructor(private favoritesService: FavoritesService) { }
+    private jwtHelper = new JwtHelperService();
 
-    private generateToken(): string {
-        return 'token_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+    constructor(private http: HttpClient, private router: Router) { }
+
+    login(credentials: any): Observable<LoginResponse> {
+        return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials).pipe(
+            tap(response => {
+                if (response.access_token) {
+                    localStorage.setItem('token', response.access_token);
+                    localStorage.setItem('user', JSON.stringify(response.user));
+
+                    // Notifica todo o app que o usuário logou
+                    this.userSubject.next(response.user);
+                }
+            })
+        );
     }
 
-    validarUser(email: string, senha: string): boolean {
-        return this.users.some(user => user.email === email && user.senha === senha);
+    // Resolve o erro: Property 'getCurrentUser' does not exist
+    getCurrentUser() {
+        return this.userSubject.value;
     }
 
-    cadastrar(user: any): { sucesso: boolean; mensagem: string } {
-        const emailExistente = this.users.some(u => u.email === user.email);
-        if (emailExistente) {
-            return { sucesso: false, mensagem: 'E-mail já cadastrado.' };
-        }
-        this.users.push({
-            email: user.email,
-            senha: user.senha,
-            nome: user.nome || '',
-            dataNascimento: user.dataNascimento || '',
-            pilotoFavorito: user.pilotoFavorito || '',
-            equipesFavorita: user.equipesFavorita || '',
-            telefone: user.telefone || '',
-            pais: user.pais || '',
-            cidade: user.cidade || ''
-        } as any);
-        console.log('Usuário cadastrado:', {
-            email: user.email,
-            senha: user.senha,
-        } as any);
-        return { sucesso: true, mensagem: 'Cadastro realizado com sucesso!' };
-    }
-
-
-    login(email: string, password: string): any {
-        const user = this.users.find((u) => u.email === email && u.senha === password);
-        if (user) {
-            console.log(`Login bem-sucedido para ${email}`);
-            const token = this.generateToken();
-            localStorage.setItem('token', token);
-            localStorage.setItem('user', JSON.stringify(user));
-            this.userSubject.next(user);
-            this.favoritesService.setCurrentUser(email);
-            return user;
-        } else {
-            console.log('Login falhou: email ou senha incorretos');
-            return null;
-        }
+    // Resolve o erro: Property 'updateUser' does not exist
+    // Usado na tela de perfil para atualizar os dados localmente
+    updateUser(userData: any) {
+        localStorage.setItem('user', JSON.stringify(userData));
+        this.userSubject.next(userData);
     }
 
     logout(): void {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        this.favoritesService.logout();
+        this.http.post(`${this.apiUrl}/logout`, {}).pipe(
+            finalize(() => {
+                // Limpa a sessão local independentemente da resposta da API
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                this.userSubject.next(null);
+                this.router.navigate(['/login']);
+            })
+        ).subscribe({
+            error: () => { /* finalize já cuida da limpeza */ }
+        });
     }
 
-    getCurrentUser(): any {
+    isLoggedIn(): boolean {
+        const token = localStorage.getItem('token');
+        if (!token) return false;
+        return !this.isTokenExpired(token);
+    }
+
+    isTokenExpired(token: string): boolean {
+        return this.jwtHelper.isTokenExpired(token);
+    }
+
+    private getUserFromStorage() {
         const user = localStorage.getItem('user');
         return user ? JSON.parse(user) : null;
-    }
-
-    updateUser(dados: any): void {
-        const user = this.getCurrentUser();
-        if (!user) return;
-        const atualizado = { ...user, ...dados };
-        localStorage.setItem('user', JSON.stringify(atualizado));
-        console.log('✅ Usuário atualizado no localStorage:', atualizado);
-        this.userSubject.next(atualizado);
-        const idx = this.users.findIndex(u => u.email === user.email);
-        if (idx !== -1) {
-            this.users[idx] = { ...this.users[idx], ...dados };
-        }
     }
 }

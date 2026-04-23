@@ -19,7 +19,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="equipesFavoritaCadastro" class="form-label">Equipe Favorita</label>
+            <!-- <label for="equipesFavoritaCadastro" class="form-label">Equipe Favorita</label>
             <div class="piloto-select-wrapper position-relative" (click)="toggleSelect($event)">
                 <div class="piloto-trigger form-control d-flex align-items-center gap-2">
                     <ng-container *ngIf="equipeSelecionada; else semEquipe">
@@ -39,7 +39,9 @@
                         <span [style.color]="e.color">{{ e.team }}</span>
                     </div>
                 </div>
-            </div>
+            </div> -->
+            <label for="phone" class="form-label">Telefone</label>
+            <input type="tel" class="form-control" id="phone" placeholder="(00) 00000-0000" formControlName="phone">
         </div>
 
         <div class="mb-3">

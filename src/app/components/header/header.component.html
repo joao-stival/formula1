@@ -24,6 +24,9 @@
       <a class="nav-link-btn" routerLink="/favoritos" routerLinkActive="active" (click)="fecharMenu()">
         ⭐ Favoritos
       </a>
+      <a class="nav-link-btn" routerLink="/cadastro-times" routerLinkActive="active" (click)="fecharMenu()">
+        Cadastro de Times
+      </a>
       <div class="user-section">
         <div class="bg-flag-layer"
           [style.backgroundImage]="currentUserPais ? 'url(' + getFlagUrl(currentUserPais) + ')' : 'none'"

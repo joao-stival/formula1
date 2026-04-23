@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService, User } from '../../services/user.service';
 
 interface DestacadoDriver {
     number: number;
@@ -33,8 +34,13 @@ interface Team {
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
 })
-export class HomeComponent {
-    constructor(private router: Router) { }
+export class HomeComponent implements OnInit {
+    users: any = [];
+
+    constructor(private router: Router, private userService: UserService) { }
+
+    ngOnInit(): void {
+    }
 
     listarPilotosDestaque(): DestacadoDriver[] {
         return [

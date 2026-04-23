@@ -4,8 +4,10 @@ import { ContentComponent } from './components/content/content.component';
 import { EventoComponent } from './components/evento/evento.component';
 import { LoginComponent } from './components/login/login.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
+import { CadastroTimesComponent } from './components/cadastro-times/cadastro-times.component';
 import { FavoritosComponent } from './components/favoritos/favoritos.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -26,7 +28,8 @@ export const routes: Routes = [
   {
     path: 'evento',
     component: EventoComponent,
-    title: 'Evento - F1 Hub'
+    title: 'Evento - F1 Hub',
+    canActivate: [authGuard]
   },
   {
     path: 'login',
@@ -39,14 +42,22 @@ export const routes: Routes = [
     title: 'Cadastro - F1 Hub'
   },
   {
+    path: 'cadastro-times',
+    component: CadastroTimesComponent,
+    title: 'Cadastro de Times - F1 Hub',
+    canActivate: [authGuard]
+  },
+  {
     path: 'favoritos',
     component: FavoritosComponent,
-    title: 'Favoritos - F1 Hub'
+    title: 'Favoritos - F1 Hub',
+    canActivate: [authGuard]
   },
   {
     path: 'perfil',
     component: PerfilComponent,
-    title: 'Perfil - F1 Hub'
+    title: 'Perfil - F1 Hub',
+    canActivate: [authGuard]
   }
 ];
 

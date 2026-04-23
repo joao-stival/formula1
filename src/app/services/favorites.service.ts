@@ -6,6 +6,9 @@ import { DriversService, Driver } from './drivers.service';
   providedIn: 'root'
 })
 export class FavoritesService {
+  clearFavorites() {
+      throw new Error('Method not implemented.');
+  }
   private favoriteDrivers = new BehaviorSubject<Driver[]>([]);
   public favoriteDrivers$ = this.favoriteDrivers.asObservable();
   private currentUserEmail: string | null = null;

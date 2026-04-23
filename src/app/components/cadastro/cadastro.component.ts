@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { DriversService, Driver } from '../../services/drivers.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -22,7 +23,8 @@ export class CadastroComponent {
     private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router,
-    private driversService: DriversService
+    private driversService: DriversService,
+    private userService: UserService
   ) {
     const drivers = this.driversService.getDrivers();
     this.equipes = drivers.reduce((acc: any[], d) => {
@@ -35,35 +37,34 @@ export class CadastroComponent {
     this.cadastroForm = this.fb.group(
       {
         nome: ['', [Validators.required, Validators.minLength(3)]],
-        dataNascimento: [''],
-        equipesFavorita: [''],
         email: ['', [Validators.required, Validators.email]],
-        senha: ['', [Validators.required, Validators.minLength(6)]],
+        phone: ['', [Validators.required, Validators.maxLength(20)]],
+        dataNascimento: ['', [Validators.required]], // 👈 AQUI
+        senha: ['', [Validators.required, Validators.minLength(8)]],
         confirmarSenha: ['', [Validators.required]]
       },
       {
         validators: this.senhasIguais
-      }
-    );
+      });
   }
 
-  toggleSelect(event: Event): void {
-    event.stopPropagation();
-    this.selectAberto = !this.selectAberto;
-  }
+  // toggleSelect(event: Event): void {
+  //   event.stopPropagation();
+  //   this.selectAberto = !this.selectAberto;
+  // }
 
-  selecionarEquipe(equipe: { team: string; logo: string; color: string }, event: Event): void {
-    event.stopPropagation();
-    this.equipeSelecionada = equipe;
-    this.cadastroForm.patchValue({ equipesFavorita: equipe.team });
-    this.selectAberto = false;
-  }
+  // selecionarEquipe(equipe: { team: string; logo: string; color: string }, event: Event): void {
+  //   event.stopPropagation();
+  //   this.equipeSelecionada = equipe;
+  //   this.cadastroForm.patchValue({ equipesFavorita: equipe.team });
+  //   this.selectAberto = false;
+  // }
 
-  limparEquipe(event: Event): void {
-    event.stopPropagation();
-    this.equipeSelecionada = null;
-    this.cadastroForm.patchValue({ equipesFavorita: '' });
-  }
+  // limparEquipe(event: Event): void {
+  //   event.stopPropagation();
+  //   this.equipeSelecionada = null;
+  //   this.cadastroForm.patchValue({ equipesFavorita: '' });
+  // }
 
   senhasIguais(form: AbstractControl) {
     const senha = form.get('senha')?.value;
@@ -73,12 +74,35 @@ export class CadastroComponent {
 
   onSubmit() {
     if (this.cadastroForm.valid) {
-      const resultado = this.loginService.cadastrar(this.cadastroForm.value);
-      alert(resultado.mensagem);
-      if (resultado.sucesso) {
-        this.router.navigate(['/login']);
-        this.cadastroForm.reset();
-      }
+
+      //colocar cadsatro na api
+
+      const form = this.cadastroForm.value;
+
+      const payload = {
+        name: form.nome,
+        email: form.email,
+        password: form.senha,
+        phone: form.phone,
+        birth: form.dataNascimento 
+      };
+
+      this.userService.create(payload).subscribe(
+        (response) => {
+          alert('Cadastro realizado com sucesso!');
+          this.router.navigate(['/login']);
+        },
+        (error) => {
+          alert('Erro ao realizar cadastro. Tente novamente.');
+        }
+      );
+
+      // const resultado = this.loginService.cadastrar(this.cadastroForm.value);
+      // alert(resultado.mensagem);
+      // if (resultado.sucesso) {
+      //   this.router.navigate(['/login']);
+      //   this.cadastroForm.reset();
+      // }
     } else {
       this.cadastroForm.markAllAsTouched();
       alert('Por favor, corrija os erros no formulário antes de enviar.');
