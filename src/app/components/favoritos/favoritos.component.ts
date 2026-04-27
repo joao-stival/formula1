@@ -21,7 +21,7 @@ export class FavoritosComponent implements OnInit, OnDestroy {
   constructor(
     private favoritesService: FavoritesService,
     private loginService: LoginService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.checkLoginStatus();

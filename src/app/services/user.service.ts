@@ -7,6 +7,7 @@ export interface User {
   name: string;
   email: string;
   password?: string;
+  admin?: boolean;
   [key: string]: any;
 }
 
@@ -16,7 +17,7 @@ export interface User {
 export class UserService {
   private apiUrl = 'http://localhost:8000/api/users';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAll(): Observable<any> {
     return this.http.get(this.apiUrl);
@@ -36,5 +37,9 @@ export class UserService {
 
   delete(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  toggleAdmin(id: number): Observable<{ id: number; admin: boolean }> {
+    return this.http.put<{ id: number; admin: boolean }>(`${this.apiUrl}/${id}/toggle-admin`, {});
   }
 }

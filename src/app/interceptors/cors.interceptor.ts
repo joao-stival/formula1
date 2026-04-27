@@ -14,8 +14,7 @@ export class CorsInterceptor implements HttpInterceptor {
     const clonedRequest = request.clone({
       setHeaders: {
         'Content-Type': 'application/json'
-      },
-      withCredentials: true
+      }
     });
 
     return next.handle(clonedRequest);

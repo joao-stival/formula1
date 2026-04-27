@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { ContentComponent } from './components/content/content.component';
 import { EventoComponent } from './components/evento/evento.component';
 import { LoginComponent } from './components/login/login.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
@@ -8,6 +7,12 @@ import { CadastroTimesComponent } from './components/cadastro-times/cadastro-tim
 import { FavoritosComponent } from './components/favoritos/favoritos.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { authGuard } from './guards/auth.guard';
+import { DriversComponent } from './components/drivers/drivers.component';
+import { CadastroPilotosComponent } from './components/cadastro-pilotos/cadastro-pilotos.component';
+import { GerenciarComponent } from './components/gerenciar/gerenciar.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { adminGuard } from './guards/admin.guard';
+import { CadastroCorridasComponent } from './components/cadastro-corridas/cadastro-corridas.component';
 
 export const routes: Routes = [
   {
@@ -21,8 +26,8 @@ export const routes: Routes = [
     title: 'Home - F1 Hub'
   },
   {
-    path: 'content',
-    component: ContentComponent,
+    path: 'drivers',
+    component: DriversComponent,
     title: 'Pilotos - F1 Hub'
   },
   {
@@ -57,6 +62,30 @@ export const routes: Routes = [
     path: 'perfil',
     component: PerfilComponent,
     title: 'Perfil - F1 Hub',
+    canActivate: [authGuard]
+  },
+  {
+    path: 'cadastro-pilotos',
+    component: CadastroPilotosComponent,
+    title: 'Cadastro de Pilotos - F1 Hub',
+    canActivate: [authGuard]
+  },
+  {
+    path: 'gerenciar',
+    component: GerenciarComponent,
+    title: 'Gerenciar - F1 Hub',
+    canActivate: [authGuard]
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    title: 'Painel Admin - F1 Hub',
+    canActivate: [adminGuard]
+  },
+  {
+    path: 'cadastro-corridas',
+    component: CadastroCorridasComponent,
+    title: 'Cadastro de Corridas - F1 Hub',
     canActivate: [authGuard]
   }
 ];

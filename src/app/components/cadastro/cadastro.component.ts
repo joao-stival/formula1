@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { DriversService, Driver } from '../../services/drivers.service';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -23,8 +22,7 @@ export class CadastroComponent {
     private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router,
-    private driversService: DriversService,
-    private userService: UserService
+    private driversService: DriversService
   ) {
     const drivers = this.driversService.getDrivers();
     this.equipes = drivers.reduce((acc: any[], d) => {
@@ -83,19 +81,21 @@ export class CadastroComponent {
         name: form.nome,
         email: form.email,
         password: form.senha,
+        password_confirmation: form.confirmarSenha,
         phone: form.phone,
-        birth: form.dataNascimento 
+        birth: form.dataNascimento
       };
 
-      this.userService.create(payload).subscribe(
-        (response) => {
+      this.loginService.register(payload).subscribe({
+        next: () => {
           alert('Cadastro realizado com sucesso!');
-          this.router.navigate(['/login']);
+          this.router.navigate(['/dashboard']);
         },
-        (error) => {
-          alert('Erro ao realizar cadastro. Tente novamente.');
+        error: (err) => {
+          const msg = err.error?.message || 'Erro ao realizar cadastro. Tente novamente.';
+          alert(msg);
         }
-      );
+      });
 
       // const resultado = this.loginService.cadastrar(this.cadastroForm.value);
       // alert(resultado.mensagem);

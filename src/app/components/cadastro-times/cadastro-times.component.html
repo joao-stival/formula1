@@ -4,88 +4,54 @@
     <p class="subtitle">Registre um novo time de Fórmula 1</p>
 
     <form [formGroup]="timesForm" (ngSubmit)="onSubmit()">
-      <!-- Mensagens de Feedback -->
+
       <div *ngIf="mensagem" [ngClass]="'mensagem ' + tipoMensagem">
         {{ mensagem }}
       </div>
 
-      <!-- Nome do Time -->
       <div class="form-group">
         <label for="name">Nome do Time *</label>
-        <input
-          type="text"
-          id="name"
-          formControlName="name"
-          placeholder="Ex: Ferrari"
-          [class.error]="isFieldInvalid('name')"
-        />
+        <input type="text" id="name" formControlName="name" placeholder="Ex: Ferrari"
+          [class.error]="isFieldInvalid('name')" />
         <small *ngIf="isFieldInvalid('name')" class="error-text">
           O nome deve ter pelo menos 3 caracteres
         </small>
       </div>
 
-      <!-- Logo -->
       <div class="form-group">
         <label for="logo">Logo *</label>
         <p class="help-text">Use caminhos locais (ex: logos/ferrari.png, /image/logo.png) ou URLs (https://...)</p>
-        <input
-          type="text"
-          id="logo"
-          formControlName="logo"
-          (change)="onLogoChange()"
-          (keyup)="onLogoChange()"
-          placeholder="Ex: logos/ferrari.png ou /logos/mercedes.png"
-          [class.error]="isFieldInvalid('logo')"
-        />
+        <input type="text" id="logo" formControlName="logo" (change)="onLogoChange()" (keyup)="onLogoChange()"
+          placeholder="Ex: logos/ferrari.png ou /logos/mercedes.png" [class.error]="isFieldInvalid('logo')" />
         <small *ngIf="isFieldInvalid('logo')" class="error-text">
           Insira um caminho válido (logos/..., /image/...) ou URL (https://...)
         </small>
-        
-        <!-- Preview da Logo -->
+
         <div *ngIf="logoPreview" class="logo-preview">
           <p class="preview-label">Prévia:</p>
           <img [src]="logoPreview" alt="Logo preview" />
         </div>
       </div>
 
-      <!-- Cor do Time -->
       <div class="form-group">
         <label for="color">Cor do Time *</label>
         <div class="color-input-wrapper">
-          <input
-            type="color"
-            id="color"
-            [value]="timesForm.get('color')?.value || '#000000'"
+          <input type="color" id="color" [value]="timesForm.get('color')?.value || '#000000'"
             (input)="timesForm.get('color')?.setValue($any($event.target).value)"
-            [class.error]="isFieldInvalid('color')"
-          />
-          <input
-            type="text"
-            formControlName="color"
-            placeholder="Ex: #DC143C"
-            [class.error]="isFieldInvalid('color')"
-          />
+            [class.error]="isFieldInvalid('color')" />
+          <input type="text" formControlName="color" placeholder="Ex: #DC143C"
+            [class.error]="isFieldInvalid('color')" />
         </div>
         <small *ngIf="isFieldInvalid('color')" class="error-text">
           Campo obrigatório
         </small>
       </div>
 
-      <!-- Botões -->
       <div class="form-actions">
-        <button
-          type="submit"
-          class="btn-primary"
-          [disabled]="loading"
-        >
+        <button type="submit" class="btn-primary" [disabled]="loading">
           {{ loading ? 'Cadastrando...' : 'Cadastrar Time' }}
         </button>
-        <button
-          type="button"
-          class="btn-secondary"
-          (click)="resetForm()"
-          [disabled]="loading"
-        >
+        <button type="button" class="btn-secondary" (click)="resetForm()" [disabled]="loading">
           Limpar
         </button>
       </div>

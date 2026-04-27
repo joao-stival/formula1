@@ -15,6 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
+  isAdmin = false;
   currentUserEmail: string | null = null;
   currentUserNome: string | null = null;
   currentUserPais: string | null = null;
@@ -42,14 +43,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.isLoggedIn = true;
-      this.carregarEquipe();
-    }
-
-    this.loginService.user$.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.carregarEquipe();
+    this.loginService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      this.isLoggedIn = !!user;
+      this.isAdmin = !!user?.admin;
+      if (user) {
+        this.carregarEquipe();
+      } else {
+        this.currentUserEmail = null;
+        this.currentUserNome = null;
+        this.currentUserPais = null;
+        this.equipeFavoritaLogo = null;
+        this.equipeFavoritaCor = null;
+      }
     });
   }
 
@@ -57,14 +62,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const user = this.loginService.getCurrentUser();
     if (user) {
       this.currentUserEmail = user.email;
-      this.currentUserNome = user.nome || null;
-      this.currentUserPais = user.pais || null;
-      if (user.equipesFavorita) {
+      // suporta tanto name (API) quanto nome (legado)
+      this.currentUserNome = user.name || user.nome || null;
+      // suporta adresses[0].country (API) ou pais (legado)
+      this.currentUserPais = user.adresses?.[0]?.country || user.pais || null;
+
+      const equipe = user.favorites || null;
+      if (equipe) {
         const drivers = this.driversService.getDrivers();
-        const equipeDriver = drivers.find(d => d.team === user.equipesFavorita);
+        const equipeDriver = drivers.find(d => d.team === equipe);
         if (equipeDriver && equipeDriver.logo) {
           this.equipeFavoritaLogo = equipeDriver.logo;
+        } else {
+          this.equipeFavoritaLogo = null;
         }
+      } else {
+        this.equipeFavoritaLogo = null;
       }
     }
   }

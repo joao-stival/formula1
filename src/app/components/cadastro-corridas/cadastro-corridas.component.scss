@@ -1,0 +1,284 @@
+.cadastro-corridas-container {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("../../../assets/image/fundo_senna.jpg") center/cover no-repeat;
+        filter: grayscale(1) brightness(0.4);
+        z-index: -1;
+    }
+}
+
+.cadastro-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    padding: 40px;
+    width: 100%;
+    max-width: 760px;
+    animation: slideIn 0.3s ease-out;
+
+    @media (max-width: 768px) {
+        padding: 20px;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1 {
+    color: #1a1a1a;
+    font-size: 28px;
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.subtitle {
+    color: #666;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 28px;
+}
+
+.mensagem {
+    padding: 14px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    text-align: center;
+
+    &.sucesso {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    &.erro {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+}
+
+/* Bulk section */
+.bulk-section {
+    background: #fff9f9;
+    border: 2px solid #e10600;
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+
+    .bulk-info {
+        margin: 0;
+        color: #1a1a1a;
+        font-size: 14px;
+    }
+}
+
+.btn-bulk {
+    padding: 11px 22px;
+    background: #e10600;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: background 0.2s;
+
+    &:hover:not(:disabled) {
+        background: #b30500;
+    }
+
+    &:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+    }
+}
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    color: #aaa;
+    font-size: 13px;
+
+    &::before,
+    &::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #e0e0e0;
+    }
+}
+
+/* Form */
+.form-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    .form-group {
+        flex: 1;
+        min-width: 160px;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 6px;
+    }
+
+    input {
+        padding: 10px 14px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.2s;
+        outline: none;
+
+        &:focus {
+            border-color: #e10600;
+        }
+
+        &.error {
+            border-color: #dc3545;
+        }
+
+        &::placeholder {
+            color: #bbb;
+        }
+    }
+}
+
+.error-text {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.image-preview {
+    margin-top: 12px;
+
+    .preview-label {
+        font-size: 12px;
+        color: #888;
+        margin-bottom: 6px;
+    }
+
+    img {
+        max-width: 100%;
+        max-height: 180px;
+        object-fit: contain;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        background: #f5f5f5;
+        padding: 8px;
+    }
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    flex: 1;
+    padding: 12px;
+    background: #e10600;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s;
+
+    &:hover:not(:disabled) {
+        background: #b30500;
+    }
+
+    &:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+    }
+}
+
+.btn-secondary {
+    padding: 12px 24px;
+    background: transparent;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    color: #666;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+
+    &:hover:not(:disabled) {
+        border-color: #999;
+        color: #333;
+    }
+
+    &:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+    }
+}
+
+.spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

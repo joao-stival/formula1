@@ -15,7 +15,7 @@
       <a class="nav-link-btn" routerLink="/home" routerLinkActive="active" (click)="fecharMenu()">
         Home
       </a>
-      <a class="nav-link-btn" routerLink="/content" routerLinkActive="active" (click)="fecharMenu()">
+      <a class="nav-link-btn" routerLink="/drivers" routerLinkActive="active" (click)="fecharMenu()">
         Pilotos
       </a>
       <a class="nav-link-btn" routerLink="/evento" routerLinkActive="active" (click)="fecharMenu()">
@@ -24,8 +24,23 @@
       <a class="nav-link-btn" routerLink="/favoritos" routerLinkActive="active" (click)="fecharMenu()">
         ⭐ Favoritos
       </a>
-      <a class="nav-link-btn" routerLink="/cadastro-times" routerLinkActive="active" (click)="fecharMenu()">
+      <a *ngIf="isAdmin" class="nav-link-btn" routerLink="/cadastro-times" routerLinkActive="active"
+        (click)="fecharMenu()">
         Cadastro de Times
+      </a>
+      <a *ngIf="isAdmin" class="nav-link-btn" routerLink="/cadastro-pilotos" routerLinkActive="active"
+        (click)="fecharMenu()">
+        Cadastro de Pilotos
+      </a>
+      <a *ngIf="isAdmin" class="nav-link-btn" routerLink="/gerenciar" routerLinkActive="active" (click)="fecharMenu()">
+        Gerenciar
+      </a>
+      <a *ngIf="isAdmin" class="nav-link-btn" routerLink="/admin" routerLinkActive="active" (click)="fecharMenu()">
+        Painel Admin
+      </a>
+      <a *ngIf="isLoggedIn" class="nav-link-btn" routerLink="/cadastro-corridas" routerLinkActive="active"
+        (click)="fecharMenu()">
+        Cadastro de Corridas
       </a>
       <div class="user-section">
         <div class="bg-flag-layer"

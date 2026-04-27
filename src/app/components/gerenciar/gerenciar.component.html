@@ -1,0 +1,90 @@
+<div class="gerenciar-container">
+    <div class="gerenciar-content">
+        <h1>Gerenciar</h1>
+        <p class="subtitle">Exclua times, pilotos e corridas cadastrados</p>
+
+        <div *ngIf="mensagem" [ngClass]="'mensagem ' + tipoMensagem">{{ mensagem }}</div>
+
+        <div *ngIf="confirmandoId !== null || confirmandoTudo" class="overlay">
+            <div class="confirm-modal">
+                <p *ngIf="!confirmandoTudo">
+                    Tem certeza que deseja excluir este {{ confirmandoTipo === 'time' ? 'time' : confirmandoTipo ===
+                    'piloto' ? 'piloto' : 'corrida' }}?
+                </p>
+                <p *ngIf="confirmandoTudo">
+                    Tem certeza que deseja excluir TODOS os {{ confirmandoTipo === 'time' ? 'times' : confirmandoTipo
+                    === 'piloto' ? 'pilotos' : 'corridas' }}?
+                </p>
+                <p class="confirm-aviso">Esta ação não pode ser desfeita.</p>
+                <div class="confirm-actions">
+                    <button class="btn-confirmar" (click)="confirmandoTudo ? excluirTudo() : excluir()">Sim,
+                        excluir</button>
+                    <button class="btn-cancelar" (click)="cancelarExclusao()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button [class.active]="aba === 'times'" (click)="aba = 'times'">Times</button>
+            <button [class.active]="aba === 'pilotos'" (click)="aba = 'pilotos'">Pilotos</button>
+            <button [class.active]="aba === 'corridas'" (click)="aba = 'corridas'">Corridas</button>
+        </div>
+
+        <div *ngIf="aba === 'times'">
+            <div *ngIf="loadingTimes" class="loading">Carregando times...</div>
+            <div *ngIf="!loadingTimes && times.length === 0" class="vazio">Nenhum time cadastrado.</div>
+            <ul *ngIf="!loadingTimes && times.length > 0" class="lista">
+                <li *ngFor="let time of times" class="item">
+                    <div class="item-info">
+                        <img *ngIf="time.logo" [src]="time.logo" [alt]="time.name" class="item-logo" />
+                        <span class="item-nome">{{ time.name }}</span>
+                        <span *ngIf="time.color" class="item-cor" [style.background]="time.color"></span>
+                    </div>
+                    <button class="btn-excluir" (click)="confirmarExclusao(time.id!, 'time')">Excluir</button>
+                </li>
+            </ul>
+            <button *ngIf="!loadingTimes && times.length > 0" class="btn-excluir-todos"
+                (click)="confirmarExclusaoTudo('time')">🗑 Excluir Todos</button>
+        </div>
+
+        <div *ngIf="aba === 'pilotos'">
+            <div *ngIf="loadingPilotos" class="loading">Carregando pilotos...</div>
+            <div *ngIf="!loadingPilotos && pilotos.length === 0" class="vazio">Nenhum piloto cadastrado.</div>
+            <ul *ngIf="!loadingPilotos && pilotos.length > 0" class="lista">
+                <li *ngFor="let piloto of pilotos" class="item">
+                    <div class="item-info">
+                        <span class="item-nome">{{ piloto.name }}</span>
+                        <span *ngIf="piloto.team" class="item-team" [style.color]="piloto.team.color">{{
+                            piloto.team.name }}</span>
+                    </div>
+                    <button class="btn-excluir" (click)="confirmarExclusao(piloto.id, 'piloto')">Excluir</button>
+                </li>
+            </ul>
+            <button *ngIf="!loadingPilotos && pilotos.length > 0" class="btn-excluir-todos"
+                (click)="confirmarExclusaoTudo('piloto')">🗑 Excluir Todos</button>
+        </div>
+
+        <div *ngIf="aba === 'corridas'">
+            <div *ngIf="loadingCorridas" class="loading">Carregando corridas...</div>
+            <div *ngIf="!loadingCorridas && corridas.length === 0" class="vazio">Nenhuma corrida cadastrada.</div>
+            <ul *ngIf="!loadingCorridas && corridas.length > 0" class="lista">
+                <li *ngFor="let corrida of corridas" class="item">
+                    <div class="item-info">
+                        <img *ngIf="corrida.image" [src]="corrida.image" [alt]="corrida.circuit" class="circuit-img" />
+                        <div class="corrida-info">
+                            <span class="item-nome">{{ corrida.name }}</span>
+                            <span class="corrida-sub">{{ corrida.circuit }} &bull; {{ corrida.city }}, {{
+                                corrida.country }}</span>
+                            <span class="corrida-sub">Round {{ corrida.round }} &bull; {{ corrida.laps }} voltas &bull;
+                                {{ corrida.date | date:'dd/MM/yyyy' }}</span>
+                        </div>
+                    </div>
+                    <button class="btn-excluir" (click)="confirmarExclusao(corrida.id!, 'corrida')">Excluir</button>
+                </li>
+            </ul>
+            <button *ngIf="!loadingCorridas && corridas.length > 0" class="btn-excluir-todos"
+                (click)="confirmarExclusaoTudo('corrida')">🗑 Excluir Todos</button>
+        </div>
+
+    </div>
+</div>

@@ -11,7 +11,7 @@ import { EventoComponent } from "./components/evento/evento.component";
   imports: [HeaderComponent, RouterModule],
 })
 export class AppComponent implements OnInit {
-  constructor(private favoritesService: FavoritesService) {}
+  constructor(private favoritesService: FavoritesService) { }
 
   ngOnInit() {
   }

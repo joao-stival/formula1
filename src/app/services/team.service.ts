@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 export interface Team {
   id?: number;
   name: string;
+  logo?: string;
+  color?: string;
   [key: string]: any;
 }
 
@@ -14,7 +16,7 @@ export interface Team {
 export class TeamsService {
   private apiUrl = 'http://localhost:8000/api/teams';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAll(): Observable<Team[]> {
     return this.http.get<Team[]>(this.apiUrl);

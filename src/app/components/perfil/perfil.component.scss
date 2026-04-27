@@ -366,6 +366,26 @@ $focus-blue: #00d4ff;
     font-size: 16px;
 }
 
+// Alert
+.alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+
+    &.alert-success {
+        background: rgba(40, 167, 69, 0.15);
+        border: 1px solid rgba(40, 167, 69, 0.4);
+        color: #28a745;
+    }
+
+    &.alert-danger {
+        background: rgba(220, 0, 0, 0.15);
+        border: 1px solid rgba(220, 0, 0, 0.4);
+        color: #ff4d4d;
+    }
+}
+
 // Responsivo
 @media (max-width: 768px) {
     .perfil-container {

@@ -1,0 +1,98 @@
+<div class="cadastro-corridas-container">
+    <div class="cadastro-content">
+        <h1>Cadastro de Corridas</h1>
+        <p class="subtitle">Registre uma corrida</p>
+
+        <div *ngIf="mensagem" [ngClass]="'mensagem ' + tipoMensagem">{{ mensagem }}</div>
+
+        <!-- <div class="bulk-section">
+            <p class="bulk-info">
+                <strong>Calendário F1 2025</strong> — {{ bulkTotal }} Grandes Prêmios prontos para importar.
+            </p>
+            <button type="button" class="btn-bulk" [disabled]="loadingBulk" (click)="cadastrarCalendario()">
+                <span *ngIf="loadingBulk" class="spinner"></span>
+                {{ loadingBulk ? 'Importando...' : '🏎 Importar Calendário 2025' }}
+            </button>
+        </div> -->
+
+        <!-- <div class="divider"><span>ou cadastre manualmente</span></div> -->
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Nome do GP *</label>
+                    <input type="text" id="name" formControlName="name" placeholder="Ex: Grande Prêmio do Brasil"
+                        [class.error]="isFieldInvalid('name')" />
+                    <small *ngIf="isFieldInvalid('name')" class="error-text">Mínimo 3 caracteres.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="circuit">Circuito / Pista *</label>
+                    <input type="text" id="circuit" formControlName="circuit"
+                        placeholder="Ex: Autódromo José Carlos Pace" [class.error]="isFieldInvalid('circuit')" />
+                    <small *ngIf="isFieldInvalid('circuit')" class="error-text">Mínimo 3 caracteres.</small>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">Cidade *</label>
+                    <input type="text" id="city" formControlName="city" placeholder="Ex: São Paulo"
+                        [class.error]="isFieldInvalid('city')" />
+                    <small *ngIf="isFieldInvalid('city')" class="error-text">Campo obrigatório.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="country">País (código ISO) *</label>
+                    <input type="text" id="country" formControlName="country" placeholder="Ex: BR" maxlength="2"
+                        [class.error]="isFieldInvalid('country')" />
+                    <small *ngIf="isFieldInvalid('country')" class="error-text">Use o código ISO de 2 letras.</small>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="round">Round *</label>
+                    <input type="number" id="round" formControlName="round" placeholder="Ex: 21" min="1"
+                        [class.error]="isFieldInvalid('round')" />
+                    <small *ngIf="isFieldInvalid('round')" class="error-text">Campo obrigatório.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="laps">Nº de Voltas *</label>
+                    <input type="number" id="laps" formControlName="laps" placeholder="Ex: 71" min="1"
+                        [class.error]="isFieldInvalid('laps')" />
+                    <small *ngIf="isFieldInvalid('laps')" class="error-text">Campo obrigatório.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Data da Corrida *</label>
+                    <input type="date" id="date" formControlName="date" [class.error]="isFieldInvalid('date')" />
+                    <small *ngIf="isFieldInvalid('date')" class="error-text">Campo obrigatório.</small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Imagem da Pista (URL)</label>
+                <input type="text" id="image" formControlName="image" placeholder="Ex: https://upload.wikimedia.org/..."
+                    (input)="onImageChange()" (keyup)="onImageChange()" />
+                <div *ngIf="imagePreview" class="image-preview">
+                    <p class="preview-label">Prévia:</p>
+                    <img [src]="imagePreview" alt="Imagem da pista" />
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary" [disabled]="loading">
+                    <span *ngIf="loading" class="spinner"></span>
+                    {{ loading ? 'Cadastrando...' : 'Cadastrar Corrida' }}
+                </button>
+                <button type="button" class="btn-secondary" (click)="resetForm()" [disabled]="loading">
+                    Limpar
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

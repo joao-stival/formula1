@@ -33,7 +33,7 @@ export class CadastroTimesComponent {
 
   validarLogo() {
     const logo = this.timesForm.get('logo')?.value || '';
-    
+
     // Aceita URLs que começam com http/https
     if (logo.startsWith('http://') || logo.startsWith('https://')) {
       this.logoType = 'url';
@@ -41,7 +41,7 @@ export class CadastroTimesComponent {
       this.timesForm.get('logo')?.setErrors(null);
       return true;
     }
-    
+
     // Aceita caminhos locais que começam com /
     if (logo.startsWith('/')) {
       this.logoType = 'local';
@@ -57,7 +57,7 @@ export class CadastroTimesComponent {
       this.timesForm.get('logo')?.setErrors(null);
       return true;
     }
-    
+
     this.logoPreview = '';
     return false;
   }

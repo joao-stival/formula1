@@ -25,6 +25,18 @@ export class LoginService {
 
     constructor(private http: HttpClient, private router: Router) { }
 
+    register(data: any): Observable<LoginResponse> {
+        return this.http.post<LoginResponse>(`${this.apiUrl}/register`, data).pipe(
+            tap(response => {
+                if (response.access_token) {
+                    localStorage.setItem('token', response.access_token);
+                    localStorage.setItem('user', JSON.stringify(response.user));
+                    this.userSubject.next(response.user);
+                }
+            })
+        );
+    }
+
     login(credentials: any): Observable<LoginResponse> {
         return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials).pipe(
             tap(response => {
@@ -39,13 +51,32 @@ export class LoginService {
         );
     }
 
-    // Resolve o erro: Property 'getCurrentUser' does not exist
     getCurrentUser() {
         return this.userSubject.value;
     }
 
-    // Resolve o erro: Property 'updateUser' does not exist
-    // Usado na tela de perfil para atualizar os dados localmente
+    // Busca o perfil completo do usuário na API (inclui endereço)
+    getMe(): Observable<any> {
+        return this.http.get(`${this.apiUrl}/me`).pipe(
+            tap((user: any) => {
+                localStorage.setItem('user', JSON.stringify(user));
+                this.userSubject.next(user);
+            })
+        );
+    }
+
+    // Envia os dados do perfil para a API e atualiza localStorage
+    updateProfileApi(profileData: any): Observable<any> {
+        return this.http.put(`${this.apiUrl}/profile`, profileData).pipe(
+            tap((response: any) => {
+                if (response.user) {
+                    localStorage.setItem('user', JSON.stringify(response.user));
+                    this.userSubject.next(response.user);
+                }
+            })
+        );
+    }
+
     updateUser(userData: any) {
         localStorage.setItem('user', JSON.stringify(userData));
         this.userSubject.next(userData);
@@ -61,7 +92,7 @@ export class LoginService {
                 this.router.navigate(['/login']);
             })
         ).subscribe({
-            error: () => { /* finalize já cuida da limpeza */ }
+            error: () => { }
         });
     }
 

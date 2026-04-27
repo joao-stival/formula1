@@ -1,0 +1,76 @@
+<div class="cadastro-pilotos-container">
+    <div class="cadastro-content">
+        <h1>Cadastro de Pilotos</h1>
+        <p class="subtitle">Registre um novo piloto ou cadastre todos de uma vez</p>
+
+        <div *ngIf="mensagem" [ngClass]="'mensagem ' + tipoMensagem">
+            {{ mensagem }}
+        </div>
+
+        <form [formGroup]="pilotoForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="name">Nome do Piloto *</label>
+                <input type="text" id="name" formControlName="name" placeholder="Ex: Max Verstappen"
+                    [class.error]="isFieldInvalid('name')" />
+                <small *ngIf="isFieldInvalid('name')" class="error-text">
+                    O nome deve ter pelo menos 3 caracteres
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="team_id">Time *</label>
+                <div *ngIf="loadingTeams" class="loading-text">Carregando times...</div>
+                <select *ngIf="!loadingTeams" id="team_id" formControlName="team_id"
+                    [class.error]="isFieldInvalid('team_id')">
+                    <option value="">Selecione um time</option>
+                    <option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</option>
+                </select>
+                <small *ngIf="isFieldInvalid('team_id')" class="error-text">
+                    Selecione um time
+                </small>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary" [disabled]="loading || loadingTeams">
+                    <span *ngIf="loading" class="spinner"></span>
+                    {{ loading ? 'Cadastrando...' : 'Cadastrar Piloto' }}
+                </button>
+                <button type="button" class="btn-secondary" (click)="resetForm()">Limpar</button>
+            </div>
+        </form>
+
+        <div class="divider">
+            <span>ou</span>
+        </div>
+
+        <div class="bulk-section">
+            <h2>Cadastrar Todos os Pilotos</h2>
+            <p class="bulk-info">
+                Cadastra automaticamente os <strong>20 pilotos</strong>
+            </p>
+            <button class="btn-bulk" (click)="cadastrarTodos()"
+                [disabled]="loadingBulk || loadingTeams || teams.length === 0">
+                <span *ngIf="loadingBulk" class="spinner"></span>
+                {{ loadingBulk ? 'Cadastrando pilotos...' : 'Cadastrar Todos os Pilotos' }}
+            </button>
+            <p *ngIf="!loadingTeams && teams.length === 0" class="aviso-times">
+                Nenhum time encontrado. Cadastre os times antes de cadastrar os pilotos.
+            </p>
+        </div>
+
+        <div *ngIf="mostrarResultados" class="bulk-resultados">
+            <h3>Resultados</h3>
+            <ul>
+                <li *ngFor="let res of bulkResultados" [ngClass]="res.status">
+                    <span class="piloto-nome">{{ res.name }}</span>
+                    <span class="status-badge">{{ res.status === 'sucesso' ? '✓ Cadastrado' : '✗ Erro' }}</span>
+                    <span *ngIf="res.message" class="erro-msg">{{ res.message }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="back-section">
+            <button type="button" class="btn-back" (click)="voltar()">← Voltar para Home</button>
+        </div>
+    </div>
+</div>

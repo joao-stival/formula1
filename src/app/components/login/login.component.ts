@@ -23,16 +23,16 @@ export class LoginComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
-  } 
+  }
 
- onSubmit() {
+  onSubmit() {
 
-  Object.keys(this.loginForm.controls).forEach(key => {
-    const controlErrors = this.loginForm.get(key)?.errors;
-    if (controlErrors != null) {
-      console.log('Erro no campo: ' + key, controlErrors);
-    }
-  });
+    Object.keys(this.loginForm.controls).forEach(key => {
+      const controlErrors = this.loginForm.get(key)?.errors;
+      if (controlErrors != null) {
+        console.log('Erro no campo: ' + key, controlErrors);
+      }
+    });
 
     if (this.loginForm.valid) {
       const payload = {
@@ -42,8 +42,8 @@ export class LoginComponent {
 
       this.loginService.login(payload).subscribe({
         next: (res) => {
-          alert('Login realizado com sucesso!');
-          this.router.navigate(['/dashboard']); // ou sua rota principal
+          console.log('Login bem-sucedido:', res);
+          this.router.navigate(['/home']);
         },
         error: (err) => {
           alert('E-mail ou senha incorretos.');

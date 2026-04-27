@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Driver {
   number: number;
@@ -10,10 +12,24 @@ export interface Driver {
   foto: string;
 }
 
+export interface ApiDriver {
+  id: number;
+  name: string;
+  team_id: number;
+  user_id?: number | null;
+  team?: { id: number; name: string; logo: string; color: string };
+}
+
+export interface DriverPayload {
+  name: string;
+  team_id: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class DriversService {
+  private apiUrl = 'http://localhost:8000/api/drivers';
   private drivers: Driver[] = [
     { number: 1, name: 'Max Verstappen', team: 'Red Bull Racing', nationality: '🇳🇱', teamColor: '#3671C6', logo: 'logos/red-bull.png', foto: 'drivers/verstappen.png' },
     { number: 22, name: 'Yuki Tsunoda', team: 'Red Bull Racing', nationality: '🇯🇵', teamColor: '#3671C6', logo: 'logos/red-bull.png', foto: 'drivers/tsunoda.png' },
@@ -37,9 +53,21 @@ export class DriversService {
     { number: 6, name: 'Isack Hadjar', team: 'Racing Bulls', nationality: '🇫🇷', teamColor: '#6692FF', logo: 'logos/racing.png', foto: 'drivers/hadjar.png' },
   ];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getDrivers(): Driver[] {
     return this.drivers;
+  }
+
+  getAll(): Observable<ApiDriver[]> {
+    return this.http.get<ApiDriver[]>(this.apiUrl);
+  }
+
+  create(payload: DriverPayload): Observable<any> {
+    return this.http.post(this.apiUrl, payload);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
